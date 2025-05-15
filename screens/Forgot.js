@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
-const LoginScreen = () => {
+const ForgotScreen = () => {
     const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState('');
@@ -35,17 +35,17 @@ const LoginScreen = () => {
 
       {/* Top Image */}
       <Image
-        source={require('../assets/Login-illustration.png')}
+        source={require('../assets/Forgot-illustration.png')}
         style={styles.image}
         resizeMode="contain"
       />
 
       {/* Login Heading */}
-      <Text style={styles.heading}>Login</Text>
-      <Text style={styles.subheading}>Welcome back</Text>
+      <Text style={styles.heading}>Reset Password</Text>
+   
 
       {/* Username Input */}
-      <Text style={styles.label}>User Name</Text>
+      <Text style={styles.label}>Email</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter UserName"
@@ -57,10 +57,8 @@ const LoginScreen = () => {
 
       {/* Password Input */}
       <View style={styles.passwordContainer}>
-        <Text style={styles.label}>Password</Text>
-        <TouchableOpacity   onPress={() => navigation.navigate('ForgotScreen')}>
-          <Text style={styles.forgot}>Forgot Password</Text>
-        </TouchableOpacity>
+        <Text style={styles.label}> New Password</Text>
+    
       </View>
       <View style={styles.passwordBox}>
         <TextInput
@@ -84,13 +82,39 @@ const LoginScreen = () => {
           />
         </TouchableOpacity>
       </View>
+      <View style={styles.passwordContainer}>
+        <Text style={styles.label}>Confirm Password</Text>
+    
+      </View>
+      <View style={styles.passwordBox}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="ReEnter Password"
+          secureTextEntry={!passwordVisible}
+          value={password}
+          onChangeText={setPassword}
+          placeholderTextColor="#999"
+        />
+        <TouchableOpacity
+          onPress={() => setPasswordVisible(!passwordVisible)}
+          style={styles.eyeIconContainer}
+        >
+          <Image
+            source={passwordVisible ? 
+              require('../assets/eye-on.png') :
+                require('../assets/eye-off.png')}
+            style={styles.eyeIcon}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      </View>
 
       {/* Login Button */}
       <TouchableOpacity 
         style={styles.loginButton}
-         onPress={() => navigation.navigate('Home')}
+         onPress={() => navigation.navigate('LoginScreen')}
       >
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Text style={styles.loginButtonText}>Save</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -109,7 +133,7 @@ const styles = StyleSheet.create({
     color: '#007b8f',
     fontWeight: 'bold',
     marginBottom: 10,
-    marginTop: -80,
+    marginTop: -30,
   },
   image: {
     width: width * 0.8,
@@ -122,12 +146,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     lineHeight: 55,
   },
-  subheading: {
-    fontSize: 18,
-    color: '#555',
-    marginBottom: 20,
-    alignSelf: 'flex-start',
-  },
+ 
   label: {
     alignSelf: 'flex-start',
     fontWeight: '600',
@@ -198,4 +217,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default ForgotScreen;
