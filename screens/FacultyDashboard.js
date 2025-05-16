@@ -1,4 +1,7 @@
 
+
+
+
 import React, { useState } from 'react';
 import { 
   View, 
@@ -8,11 +11,16 @@ import {
   TouchableOpacity, 
   Image, 
 } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 import BottomNavbar from './BottomNavbar';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const FacultyDashboard = () => {
   const [activeTab, setActiveTab] = useState('home');
+  const navigation = useNavigation();
 
   const handleTabPress = (tabId) => {
     setActiveTab(tabId);
@@ -21,33 +29,41 @@ const FacultyDashboard = () => {
   const categories = [
     { 
       id: 1, 
-      name: "Today's     Schedule", 
+      name: "Today's Schedule", 
       icon: 'schedule',
       bgColor: '#DDFFF7',
-      image: require('../assets/Home-1.png')
+      image: require('../assets/Home-1.png'),
+      screenName: 'ScheduleScreen'
     },
     { 
       id: 2, 
-      name: 'Student Attendance', 
+      name: 'Student Attendance',
       icon: 'group',
       bgColor: '#D5DEFF',
-      image: require('../assets/Home-2.png')
+      image: require('../assets/Home-2.png'),
+      screenName: 'AttendanceScreen'
     },
     { 
       id: 3, 
       name: 'Academic Calendar', 
       icon: 'calendar-today',
       bgColor: '#EDD6FB',
-      image: require('../assets/Home-3.png')
+      image: require('../assets/Home-3.png'),
+      screenName: 'CalendarScreen'
     },
     { 
       id: 4, 
       name: 'Notes & Assignments', 
       icon: 'assignment',
       bgColor: '#FFD8E4',
-      image: require('../assets/Home-4.png')
+      image: require('../assets/Home-4.png'),
+      screenName: 'AssignmentsScreen'
     },
   ];
+
+  const handleCategoryPress = (screenName) => {
+    navigation.navigate(screenName);
+  };
 
   return (
     <View style={styles.container}>
@@ -76,6 +92,7 @@ const FacultyDashboard = () => {
             <TouchableOpacity 
               key={category.id} 
               style={[styles.categoryItem, {backgroundColor: category.bgColor}]}
+              onPress={() => handleCategoryPress(category.screenName)}
             >
               <View style={styles.categoryImageContainer}>
                 <Image 
@@ -90,9 +107,11 @@ const FacultyDashboard = () => {
             </TouchableOpacity>
           ))}
         </View>
-         <View style={styles.announcementTextContainer}>
-            <Text style={styles.cardTitle}>Announcements</Text>
-            </View>
+        
+        <View style={styles.announcementTextContainer}>
+          <Text style={styles.cardTitle}>Announcements</Text>
+        </View>
+        
         <View style={styles.announcementCard}>
           <View style={styles.announcementTextContainer}>
             <Text style={styles.eventTitle}>College Music Festival 2025</Text>
@@ -123,80 +142,80 @@ const styles = StyleSheet.create({
   },
   hamburger: {
     position: 'absolute',
-    top: 30,
-    left: 20,
+    top: hp(4),
+    left: wp(5),
     zIndex: 10,
   },
-  hamburgerImage:{
-    height:16,
-    width:20,
+  hamburgerImage: {
+    height: hp(2),
+    width: wp(5),
   },
   content: {
-    padding: 20,
-    paddingTop: 70,
-    paddingBottom: 100,
+    padding: wp(5),
+    paddingTop: hp(9),
+    paddingBottom: hp(12),
   },
   profileSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 25,
+    marginBottom: hp(3),
     backgroundColor: '#1C7988CC',
-    padding: 20,
-    borderRadius: 12,
+    padding: wp(5),
+    borderRadius: wp(3),
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: wp(1),
   },
   profileImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginRight: 20,
-    borderWidth: 2,
+    width: wp(20),
+    height: wp(20),
+    borderRadius: wp(10),
+    marginRight: wp(5),
+    borderWidth: wp(0.5),
     borderColor: '#e0e0e0',
   },
   profileInfo: {
     flex: 1,
   },
   name: {
-    fontSize: 20,
+    fontSize: hp(2.5),
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: hp(0.6),
     color: 'white',
   },
   qualification: {
-    fontSize: 14,
+    fontSize: hp(1.7),
     color: 'white',
-    marginBottom: 5,
+    marginBottom: hp(0.6),
   },
   experience: {
-    fontSize: 14,
+    fontSize: hp(1.7),
     color: 'white',
   },
   categoriesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginBottom: 25,
+    marginBottom: hp(3),
   },
   categoryItem: {
     width: '48%',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
+    borderRadius: wp(2.5),
+    padding: wp(3.5),
+    marginBottom: hp(2),
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: wp(1),
     overflow: 'hidden',
   },
   categoryImageContainer: {
-    height: 80,
-    margin: -15,
-    marginBottom: 10,
+    height: hp(10),
+    margin: wp(-3.5),
+    marginBottom: hp(1.2),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -209,63 +228,58 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryText: {
-    fontSize: 16,
+    fontSize: hp(2),
     color: '#333',
     fontWeight: '500',
     alignItems: 'center',
-    marginLeft: 30,
+    marginLeft: wp(7),
   },
-
-
   announcementCard: {
     backgroundColor: 'white',
-    borderRadius: 12,
+    borderRadius: wp(3),
     flexDirection: 'row',
     alignItems: 'center',
-  padding:15,
-    marginBottom: 20,
+    padding: wp(3.5),
+    marginBottom: hp(2.5),
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
-
+    shadowRadius: wp(1),
   },
   announcementTextContainer: {
     flex: 1,
-    paddingRight: 10,
-
+    paddingRight: wp(2.5),
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: hp(2),
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 10,
-    marginLeft:10,
+    marginBottom: hp(1.2),
+    marginLeft: wp(2.5),
   },
   eventTitle: {
-    fontSize: 15,
+    fontSize: hp(1.8),
     fontWeight: '600',
     color: '#1C7988',
-    marginBottom: 6,
+    marginBottom: hp(0.7),
   },
   eventDescription: {
-    fontSize: 13,
+    fontSize: hp(1.6),
     color: '#555',
-    lineHeight: 18,
+    lineHeight: hp(2.2),
   },
   viewMore: {
-    fontSize: 14,
+    fontSize: hp(1.7),
     color: '#1C7988',
-   
-   
   },
   announcementImage: {
-    width: 100,
-    height: 80,
-    borderRadius: 8,
-
+    width: wp(25),
+    height: hp(10),
+    borderRadius: wp(2),
   },
 });
 
 export default FacultyDashboard;
+
+

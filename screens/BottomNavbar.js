@@ -1,36 +1,37 @@
 
+
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 
 const BottomNavbar = ({ activeTab, onTabPress }) => {
   const tabs = [
-    { id: 'Home', icon: require('../assets/home-icon.png') },
-    { id: 'Exams', icon: require('../assets/Exams.png') },
-    { id: 'Marks', icon: require('../assets/Marks.png') },
-    { id: 'profile', icon: require('../assets/profile-icon.png') },
+    { id: 'Home', label: 'Home', icon: require('../assets/home-icon.png') },
+    { id: 'Exams', label: 'Exams', icon: require('../assets/Exams.png') },
+    { id: 'Marks', label: 'Marks', icon: require('../assets/Marks.png') },
+    { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png') },
   ];
 
   return (
     <View style={styles.container}>
-      {tabs.map((tab) => (
-        <TouchableOpacity
-          key={tab.id}
-          style={[
-            styles.tab,
-            activeTab === tab.id && styles.activeTab,
-          ]}
-          onPress={() => onTabPress(tab.id)}
-        >
-          <Image
-            source={tab.icon}
-            style={[
-              styles.icon,
-              activeTab === tab.id && styles.activeIcon,
-            ]}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-      ))}
+      {tabs.map((tab) => {
+        const isActive = activeTab === tab.id;
+        return (
+          <TouchableOpacity
+            key={tab.id}
+            style={styles.tab}
+            onPress={() => onTabPress(tab.id)}
+          >
+            <Image
+              source={tab.icon}
+              style={[styles.icon, isActive && styles.activeIcon]}
+              resizeMode="contain"
+            />
+            <Text style={[styles.label, isActive && styles.activeLabel]}>
+              {tab.label}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };
@@ -43,23 +44,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopWidth: 1,
     borderTopColor: '#e0e0e0',
-    paddingVertical: 10,
-    height: 60,
+    height: 70,
   },
   tab: {
-    padding: 8,
-    borderRadius: 20,
-  },
-  activeTab: {
-    backgroundColor: '#e3f2fd',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   icon: {
     width: 24,
     height: 24,
-    tintColor: '#757575',
+    // tintColor: '#757575',
   },
   activeIcon: {
     tintColor: '#2196f3',
+  },
+  label: {
+    fontSize: 12,
+    // color: '#757575',
+    marginTop: 4,
+    color:'black',
+  },
+  activeLabel: {
+    color: '#2196f3',
+    fontWeight: '500',
   },
 });
 
