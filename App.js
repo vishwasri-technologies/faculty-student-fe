@@ -10,8 +10,8 @@ import FacultyDashboard from './screens/FacultyDashboard';
 import ForgotScreen from './screens/Forgot';
 import ScheduleScreen from './screens/Schedule';
 import AttendanceScreen from './screens/Attendance';
-// import CalendarScreen from './screens/CalendarScreen';
-// import AssignmentsScreen from './screens/AssignmentsScreen';
+import CalendarScreen from './screens/AcademicCalendar';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -56,11 +56,11 @@ const App = () => {
             component={AttendanceScreen}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="CalendarScreen"
             component={CalendarScreen}
             options={{ headerShown: false }}
-          /> */}
+          />
           {/* <Stack.Screen
             name="AssignmentsScreen"
             component={AssignmentsScreen}
