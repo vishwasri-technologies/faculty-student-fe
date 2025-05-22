@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import {
   View,
@@ -18,7 +19,7 @@ import {
 import BottomNavbar from './BottomNavbar';
 
 const CalendarScreen = () => {
-      const navigation = useNavigation();
+  const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
   const [branchDropdown, setBranchDropdown] = useState(false);
   const [yearDropdown, setYearDropdown] = useState(false);
@@ -27,7 +28,7 @@ const CalendarScreen = () => {
   const [selectedYear, setSelectedYear] = useState('');
 
   const branches = ['Computer Science', 'Electronics', 'Mechanical'];
-  const years = [ '2023-2024','2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029', ];
+  const years = ['2023-2024', '2024-2025', '2025-2026', '2026-2027', '2027-2028', '2028-2029'];
 
   const handleDownload = () => {
     const pdfUrl = 'https://example.com/sample-academic-calendar.pdf';
@@ -35,97 +36,85 @@ const CalendarScreen = () => {
   };
 
   return (
-     <SafeAreaView style={styles.container}>
-    <ScrollView contentContainerStyle={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-               <Image source={require('../assets/backarrow.png')} style={styles.backIcon} />
-             </TouchableOpacity>
-             <Text style={styles.headerTitle}>Academic Calendar</Text></View>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image source={require('../assets/backarrow.png')} style={styles.backIcon} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Academic Calendar</Text>
+        </View>
 
-      <View style={styles.card}>
-        <TouchableOpacity
-          style={styles.dropdownHeader}
-          onPress={() => setExpanded(!expanded)}>
-          <Text style={styles.dropdownTitle}>Academic Calendar</Text>
-          <Image
-            source={require('../assets/down-arrow.png')}
-            style={styles.arrowImage}
-          />
-        </TouchableOpacity>
+        <View style={styles.card}>
+          <TouchableOpacity
+            style={styles.dropdownHeader}
+            onPress={() => setExpanded(!expanded)}>
+            <Text style={styles.dropdownTitle}>Academic Calendar</Text>
+          </TouchableOpacity>
 
-        <Text style={styles.subText}>Calendar for the Academic year</Text>
+          <Text style={styles.subText}>Calendar for the Academic year</Text>
 
-        {expanded && (
-          <View style={styles.dropdownContent}>
-            {/* Branch Dropdown */}
-            <Text style={styles.label}>Select Branch</Text>
-            <TouchableOpacity
-              style={styles.selectBox}
-              onPress={() => setBranchDropdown(!branchDropdown)}>
-              <Text style={styles.selectedText}>
-                {selectedBranch || 'Choose Branch...'}
-              </Text>
-              <Image
-                source={require('../assets/down-arrow.png')}
-                style={styles.arrowImage}
-              />
-            </TouchableOpacity>
-            {branchDropdown && (
-              <View style={styles.dropdownList}>
-                {branches.map((item, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.dropdownItem}
-                    onPress={() => {
-                      setSelectedBranch(item);
-                      setBranchDropdown(false);
-                    }}>
-                    <Text>{item}</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
+          {/* Download link immediately after subtitle */}
+          <TouchableOpacity onPress={handleDownload}>
+            <Text style={styles.downloadLink}>Download PDF</Text>
+          </TouchableOpacity>
 
-            {/* Year Dropdown */}
-            <Text style={[styles.label, { marginTop: hp('2%') }]}>Select Year</Text>
-            <TouchableOpacity
-              style={styles.selectBox}
-              onPress={() => setYearDropdown(!yearDropdown)}>
-              <Text style={styles.selectedText}>
-                {selectedYear || 'Choose Year...'}
-              </Text>
-              <Image
-                source={require('../assets/down-arrow.png')}
-                style={styles.arrowImage}
-              />
-            </TouchableOpacity>
-            {yearDropdown && (
-              <View style={styles.dropdownList}>
-                {years.map((item, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.dropdownItem}
-                    onPress={() => {
-                      setSelectedYear(item);
-                      setYearDropdown(false);
-                    }}>
-                    <Text>{item}</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
-
-            {selectedBranch && selectedYear && (
-              <TouchableOpacity onPress={handleDownload}>
-                <Text style={styles.downloadLink}>Download PDF</Text>
+          {expanded && (
+            <View style={styles.dropdownContent}>
+              {/* Branch Dropdown */}
+              <Text style={styles.label}>Select Branch</Text>
+              <TouchableOpacity
+                style={styles.selectBox}
+                onPress={() => setBranchDropdown(!branchDropdown)}>
+                <Text style={styles.selectedText}>
+                  {selectedBranch || 'Choose Branch...'}
+                </Text>
               </TouchableOpacity>
-            )}
-          </View>
-        )}
-      </View>
-    </ScrollView>
-    <BottomNavbar/>
+              {branchDropdown && (
+                <View style={styles.dropdownList}>
+                  {branches.map((item, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.dropdownItem}
+                      onPress={() => {
+                        setSelectedBranch(item);
+                        setBranchDropdown(false);
+                      }}>
+                      <Text>{item}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+
+              {/* Year Dropdown */}
+              <Text style={[styles.label, { marginTop: hp('2%') }]}>Select Year</Text>
+              <TouchableOpacity
+                style={styles.selectBox}
+                onPress={() => setYearDropdown(!yearDropdown)}>
+                <Text style={styles.selectedText}>
+                  {selectedYear || 'Choose Year...'}
+                </Text>
+              </TouchableOpacity>
+              {yearDropdown && (
+                <View style={styles.dropdownList}>
+                  {years.map((item, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.dropdownItem}
+                      onPress={() => {
+                        setSelectedYear(item);
+                        setYearDropdown(false);
+                      }}>
+                      <Text>{item}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+            </View>
+          )}
+        </View>
+      </ScrollView>
+      <BottomNavbar />
     </SafeAreaView>
   );
 };
@@ -137,7 +126,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
- header: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -146,7 +135,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
   },
-    backIcon: {
+  backIcon: {
     width: wp('6.4%'),
     height: hp('3%'),
   },
@@ -154,7 +143,7 @@ const styles = StyleSheet.create({
     fontSize: hp('2.5%'),
     fontWeight: 'bold',
     color: 'white',
-    marginRight:wp('23'),
+    marginRight: wp('23'),
   },
   card: {
     backgroundColor: '#f9f9f9',
@@ -162,8 +151,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: hp('4%'),
     elevation: 3,
-    width:wp('90%'),
-    marginLeft:wp('5'),
+    width: wp('90%'),
+    marginLeft: wp('5'),
   },
   dropdownHeader: {
     flexDirection: 'row',
@@ -173,11 +162,6 @@ const styles = StyleSheet.create({
   dropdownTitle: {
     fontSize: wp('4.8%'),
     fontWeight: 'bold',
-  },
-  arrowImage: {
-    width: wp('5%'),
-    height: wp('5%'),
-    resizeMode: 'contain',
   },
   subText: {
     fontSize: wp('3.9%'),
@@ -220,7 +204,8 @@ const styles = StyleSheet.create({
   downloadLink: {
     fontSize: wp('4%'),
     color: '#007BFF',
-    marginTop: hp('3%'),
+    marginTop: hp('2%'),
     textDecorationLine: 'underline',
   },
 });
+

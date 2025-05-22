@@ -17,6 +17,7 @@ const { width } = Dimensions.get('window');
 const ForgotScreen = () => {
     const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -45,7 +46,7 @@ const ForgotScreen = () => {
    
 
       {/* Username Input */}
-      <Text style={styles.label}>Email</Text>
+      <Text style={styles.label}>User Name</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter UserName"
@@ -86,28 +87,29 @@ const ForgotScreen = () => {
         <Text style={styles.label}>Confirm Password</Text>
     
       </View>
-      <View style={styles.passwordBox}>
-        <TextInput
-          style={styles.passwordInput}
-          placeholder="ReEnter Password"
-          secureTextEntry={!passwordVisible}
-          value={password}
-          onChangeText={setPassword}
-          placeholderTextColor="#999"
-        />
-        <TouchableOpacity
-          onPress={() => setPasswordVisible(!passwordVisible)}
-          style={styles.eyeIconContainer}
-        >
-          <Image
-            source={passwordVisible ? 
-              require('../assets/eye-on.png') :
-                require('../assets/eye-off.png')}
-            style={styles.eyeIcon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-      </View>
+     <View style={styles.passwordBox}>
+  <TextInput
+    style={styles.passwordInput}
+    placeholder="ReEnter Password"
+    secureTextEntry={!confirmPasswordVisible}
+    value={password}
+    onChangeText={setPassword}
+    placeholderTextColor="#999"
+  />
+  <TouchableOpacity
+    onPress={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+    style={styles.eyeIconContainer}
+  >
+    <Image
+      source={confirmPasswordVisible ? 
+        require('../assets/eye-on.png') :
+        require('../assets/eye-off.png')}
+      style={styles.eyeIcon}
+      resizeMode="contain"
+    />
+  </TouchableOpacity>
+</View>
+
 
       {/* Login Button */}
       <TouchableOpacity 
@@ -200,6 +202,14 @@ const styles = StyleSheet.create({
     height: 24,
     tintColor: '#333',
   },
+   eyeIconContainer1: {
+    padding: 5,
+  },
+eyeIcon1: {
+    width: 24,
+    height: 24,
+    tintColor: '#333',
+  },
   loginButton: {
     backgroundColor: '#007b8f',
     paddingVertical: 14,
@@ -214,7 +224,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 18,
-  }
+  },
 });
 
 export default ForgotScreen;

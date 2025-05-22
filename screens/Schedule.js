@@ -38,7 +38,7 @@ const ScheduleScreen = () => {
 
     const yearList = [];
     const currentYear = new Date().getFullYear();
-    for (let i = currentYear - 5; i <= currentYear + 5; i++) {
+    for (let i = currentYear - 25; i <= currentYear + 25; i++) {
       yearList.push(i);
     }
     setYears(yearList);

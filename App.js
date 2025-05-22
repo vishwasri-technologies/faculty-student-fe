@@ -11,6 +11,10 @@ import ForgotScreen from './screens/Forgot';
 import ScheduleScreen from './screens/Schedule';
 import AttendanceScreen from './screens/Attendance';
 import CalendarScreen from './screens/AcademicCalendar';
+import NotesAssignmentsScreen from './screens/NotesAssignmentsScreen';
+import UploadNotesScreen from './screens/UploadNotesScreen';
+import UploadAssignmentScreen from './screens/UploadAssignmentScreen';
+import AnnouncementsScreen from './screens/AnnouncementsScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -19,11 +23,10 @@ const App = () => {
   return (
     <>
       <StatusBar 
-        barStyle="dark-content" 
-        backgroundColor="#1C7988" 
-        translucent={false} 
+        barStyle="dark-content"
+        backgroundColor="#1C7988"
+        translucent={false}
       />
-      
       <NavigationContainer>
         <Stack.Navigator initialRouteName="SignUp">
           <Stack.Screen
@@ -61,11 +64,26 @@ const App = () => {
             component={CalendarScreen}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-            name="AssignmentsScreen"
-            component={AssignmentsScreen}
+          <Stack.Screen
+            name="NotesAssignmentsScreen"
+            component={NotesAssignmentsScreen}
             options={{ headerShown: false }}
-          /> */}
+          />
+          <Stack.Screen
+            name="UploadNotesScreen"
+            component={UploadNotesScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="UploadAssignmentScreen"
+            component={UploadAssignmentScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="AnnouncementsScreen"
+            component={AnnouncementsScreen}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
