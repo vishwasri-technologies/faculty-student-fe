@@ -2,14 +2,23 @@
 
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const BottomNavbar = ({ activeTab, onTabPress }) => {
+const BottomNavbar = ({ activeTab }) => {
+  const navigation = useNavigation();
+
   const tabs = [
-    { id: 'Home', label: 'Home', icon: require('../assets/home-icon.png') },
-    { id: 'Exams', label: 'Exams', icon: require('../assets/Exams.png') },
-    { id: 'Marks', label: 'Marks', icon: require('../assets/Marks.png') },
-    { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png') },
+    { id: 'Home', label: 'Home', icon: require('../assets/home-icon.png'), screen: 'Home' },
+    { id: 'Exams', label: 'Exams', icon: require('../assets/Exams.png'), screen: 'ExamsScreen' },
+    { id: 'Marks', label: 'Marks', icon: require('../assets/Marks.png'), screen: 'MarksScreen' },
+    { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png'), screen: 'ProfileScreen' },
   ];
+
+  const handlePress = (tabId, screen) => {
+    if (activeTab !== tabId) {
+      navigation.navigate(screen);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -19,7 +28,7 @@ const BottomNavbar = ({ activeTab, onTabPress }) => {
           <TouchableOpacity
             key={tab.id}
             style={styles.tab}
-            onPress={() => onTabPress(tab.id)}
+            onPress={() => handlePress(tab.id, tab.screen)}
           >
             <Image
               source={tab.icon}
@@ -54,21 +63,18 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    // tintColor: '#757575',
   },
-  activeIcon: {
-    tintColor: '#2196f3',
-  },
+ 
   label: {
     fontSize: 12,
-    // color: '#757575',
     marginTop: 4,
-    color:'black',
+    color: 'black',
   },
   activeLabel: {
-    color: '#2196f3',
+    color: "#1C7988",
     fontWeight: '500',
   },
 });
 
 export default BottomNavbar;
+

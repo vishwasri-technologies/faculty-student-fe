@@ -9,15 +9,16 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  Dimensions,
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-const { width, height } = Dimensions.get('window');
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
@@ -37,7 +38,6 @@ const SignUpScreen = () => {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* Top Image */}
           <Image
             source={require('../assets/Signup-illustration.png')}
             style={styles.topImage}
@@ -87,6 +87,18 @@ const SignUpScreen = () => {
           >
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
+
+          <View style={styles.loginLinkContainer}>
+            <Text style={styles.loginText}>
+              Already have an account?{' '}
+              <Text
+                style={styles.loginLink}
+                onPress={() => navigation.navigate('LoginScreen')}
+              >
+                Login
+              </Text>
+            </Text>
+          </View>
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
@@ -95,32 +107,32 @@ const SignUpScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 30,
-    paddingHorizontal: 20,
+    paddingVertical: hp('4%'),
+    paddingHorizontal: wp('5%'),
     backgroundColor: '#fff',
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   topImage: {
-    width: width * 0.75,
-    height: height * 0.3,
-    marginBottom: 10,
+    width: wp('75%'),
+    height: hp('30%'),
+    marginBottom: hp('2%'),
   },
   heading: {
-    fontSize: 26,
+    fontSize: hp('3.2%'),
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: hp('4%'),
     color: 'black',
     alignSelf: 'flex-start',
   },
   formGroup: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: hp('2.5%'),
   },
   label: {
-    fontSize: 16,
-    marginBottom: 6,
+    fontSize: hp('2%'),
+    marginBottom: hp('1%'),
     fontWeight: '500',
     color: '#333',
   },
@@ -128,28 +140,42 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 6,
-    paddingHorizontal: 12,
-    paddingVertical: Platform.OS === 'ios' ? 14 : 10,
-    fontSize: 16,
+    borderRadius: wp('2%'),
+    paddingHorizontal: wp('4%'),
+    paddingVertical: hp('1.4%'),
+    fontSize: hp('2%'),
     backgroundColor: '#f9f9f9',
     color: '#000',
   },
   button: {
-    marginTop: 20,
+    marginTop: hp('1.0%'),
     backgroundColor: '#1C7988',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-    width: '50%',
+    paddingVertical: hp('1.5%'),
+    borderRadius: wp('3%'),
+    width: wp('90%'),
     alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: hp('2.2%'),
     fontWeight: '600',
+  },
+  loginLinkContainer: {
+    marginTop:hp('2'),
+  alignSelf:'center',
+  marginRight:wp('1'),
+  },
+  loginText: {
+    fontSize: hp('1.8%'),
+    color: '#333',
+  },
+  loginLink: {
+    color: '#1C7988',
+    fontWeight: '600',
+    textDecorationLine: 'underline',
   },
 });
 
 export default SignUpScreen;
+
 

@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import {
   View,
@@ -7,195 +8,224 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  Dimensions,
-  ScrollView
+  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-const { width } = Dimensions.get('window');
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const LoginScreen = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Your login logic here
-    console.log('Login attempted with:', username, password);
-  };
-
   return (
-    <ScrollView 
-      contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps="handled"
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}
     >
-      {/* Logo Title */}
-      <Text style={styles.title}>Camphavens</Text>
-
-      {/* Top Image */}
-      <Image
-        source={require('../assets/Login-illustration.png')}
-        style={styles.image}
-        resizeMode="contain"
-      />
-
-      {/* Login Heading */}
-      <Text style={styles.heading}>Login</Text>
-      <Text style={styles.subheading}>Welcome back</Text>
-
-      {/* Username Input */}
-      <Text style={styles.label}>User Name</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter UserName"
-        value={username}
-        onChangeText={setUsername}
-        placeholderTextColor="#999"
-        autoCapitalize="none"
-      />
-
-      {/* Password Input */}
-      <View style={styles.passwordContainer}>
-        <Text style={styles.label}>Password</Text>
-        <TouchableOpacity   onPress={() => navigation.navigate('ForgotScreen')}>
-          <Text style={styles.forgot}>Forgot Password</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.passwordBox}>
-        <TextInput
-          style={styles.passwordInput}
-          placeholder="Enter Password"
-          secureTextEntry={!passwordVisible}
-          value={password}
-          onChangeText={setPassword}
-          placeholderTextColor="#999"
-        />
-        <TouchableOpacity
-          onPress={() => setPasswordVisible(!passwordVisible)}
-          style={styles.eyeIconContainer}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
         >
+          <Text style={styles.title}>Camphavens</Text>
+
           <Image
-            source={passwordVisible ? 
-              require('../assets/eye-on.png') :
-                require('../assets/eye-off.png')}
-            style={styles.eyeIcon}
+            source={require('../assets/Login-illustration.png')}
+            style={styles.image}
             resizeMode="contain"
           />
-        </TouchableOpacity>
-      </View>
 
-      {/* Login Button */}
-      <TouchableOpacity 
-        style={styles.loginButton}
-         onPress={() => navigation.navigate('Home')}
-      >
-        <Text style={styles.loginButtonText}>Login</Text>
-      </TouchableOpacity>
-    </ScrollView>
+          <Text style={styles.heading}>Login</Text>
+          <Text style={styles.subheading}>Welcome back</Text>
+
+          <Text style={styles.label}>User Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter UserName"
+            value={username}
+            onChangeText={setUsername}
+            placeholderTextColor="#999"
+            autoCapitalize="none"
+          />
+
+          <View style={styles.passwordContainer}>
+            <Text style={styles.label}>Password</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('ForgotScreen')}>
+              <Text style={styles.forgot}>Forgot Password</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.passwordBox}>
+            <TextInput
+              style={styles.passwordInput}
+              placeholder="Enter Password"
+              secureTextEntry={!passwordVisible}
+              value={password}
+              onChangeText={setPassword}
+              placeholderTextColor="#999"
+            />
+            <TouchableOpacity
+              onPress={() => setPasswordVisible(!passwordVisible)}
+              style={styles.eyeIconContainer}
+            >
+              <Image
+                source={
+                  passwordVisible
+                    ? require('../assets/eye-on.png')
+                    : require('../assets/eye-off.png')
+                }
+                style={styles.eyeIcon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Text style={styles.loginButtonText}>Login</Text>
+          </TouchableOpacity>
+
+          <View style={styles.signupLinkContainer}>
+            <Text style={styles.signupText}>
+              Don’t have an account?{' '}
+              <Text
+                style={styles.signupLink}
+                onPress={() => navigation.navigate('SignUp')}
+              >
+                Sign Up
+              </Text>
+            </Text>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: wp('5%'),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
     flexGrow: 1,
   },
   title: {
-    fontSize: 26,
+    fontSize: hp('3.2%'),
     color: '#007b8f',
     fontWeight: 'bold',
-    marginBottom: 10,
-    marginTop: -80,
+    marginBottom: hp('1.5%'),
+    marginTop: hp('-6%'),
   },
   image: {
-    width: width * 0.8,
-    height: width * 0.6,
-    marginBottom: 20,
+    width: wp('80%'),
+    height: hp('30%'),
+    marginBottom: hp('3%'),
   },
   heading: {
-    fontSize: 26,
+    fontSize: hp('3%'),
     fontWeight: 'bold',
     alignSelf: 'flex-start',
-    lineHeight: 55,
+    lineHeight: hp('5.5%'),
   },
   subheading: {
-    fontSize: 18,
+    fontSize: hp('2.2%'),
     color: '#555',
-    marginBottom: 20,
+    marginBottom: hp('3%'),
     alignSelf: 'flex-start',
   },
   label: {
     alignSelf: 'flex-start',
     fontWeight: '600',
-    marginBottom: 5,
-    fontSize: 18,
+    marginBottom: hp('0.5%'),
+    fontSize: hp('2.2%'),
   },
   input: {
     width: '100%',
-    height: 50,
+    height: hp('6.5%'),
     borderWidth: 1,
     borderColor: '#ccc',
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    marginBottom: 20,
-    fontSize: 16,
+    paddingHorizontal: wp('3%'),
+    borderRadius: wp('2%'),
+    marginBottom: hp('2.5%'),
+    fontSize: hp('2%'),
   },
   passwordContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
     alignItems: 'center',
-    marginBottom: 5,
+    marginBottom: hp('0.5%'),
   },
   forgot: {
     color: '#007b8f',
     fontWeight: '500',
+    fontSize: hp('2%'),
   },
   passwordBox: {
     width: '100%',
-    height: 50,
+    height: hp('6.5%'),
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: '#ccc',
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    paddingHorizontal: wp('3%'),
+    borderRadius: wp('2%'),
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 30,
+    marginBottom: hp('4%'),
   },
   passwordInput: {
     flex: 1,
     color: '#000',
     height: '100%',
-    fontSize: 16,
+    fontSize: hp('2%'),
   },
   eyeIconContainer: {
-    padding: 5,
+    padding: wp('1%'),
   },
   eyeIcon: {
-    width: 24,
-    height: 24,
+    width: wp('5.5%'),
+    height: wp('5.5%'),
     tintColor: '#333',
   },
   loginButton: {
     backgroundColor: '#007b8f',
-    paddingVertical: 14,
-    paddingHorizontal: 40,
-    borderRadius: 8,
-    width: '50%',
+    paddingVertical: hp('1.8%'),
+    borderRadius: wp('2.5%'),
+    width: wp('90%'),
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: hp('0.1%'),
   },
   loginButtonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 18,
-  }
+    fontSize: hp('2.2%'),
+  },
+  signupLinkContainer: {
+    marginTop: hp('2%'),
+    alignItems: 'center',
+  },
+  signupText: {
+    fontSize: hp('1.9%'),
+    color: '#333',
+  },
+  signupLink: {
+    color: '#007b8f',
+    fontWeight: '600',
+    textDecorationLine: 'underline',
+  },
 });
 
 export default LoginScreen;

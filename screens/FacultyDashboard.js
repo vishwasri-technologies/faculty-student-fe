@@ -155,7 +155,7 @@ const FacultyDashboard = () => {
         </View>
       </ScrollView>
 
-      <BottomNavbar />
+      <BottomNavbar activeTab="Home" />
     </View>
   );
 };
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     fontSize: hp(2),
     color: '#333',
     fontWeight: '500',
-    marginLeft: wp(7),
+    marginLeft: wp(9),
   },
   announcementCard: {
     backgroundColor: 'white',

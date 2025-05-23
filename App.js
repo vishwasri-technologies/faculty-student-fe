@@ -15,6 +15,10 @@ import NotesAssignmentsScreen from './screens/NotesAssignmentsScreen';
 import UploadNotesScreen from './screens/UploadNotesScreen';
 import UploadAssignmentScreen from './screens/UploadAssignmentScreen';
 import AnnouncementsScreen from './screens/AnnouncementsScreen';
+import ExamsScreen from './screens/ExamsScreen';
+import MarksScreen from './screens/MarksScreen';
+import InternalMarksScreen from './screens/InternalMarks';
+import AssignmentMarksScreen from './screens/AssignmentMarks';
 
 
 const Stack = createNativeStackNavigator();
@@ -82,6 +86,26 @@ const App = () => {
            <Stack.Screen
             name="AnnouncementsScreen"
             component={AnnouncementsScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="ExamsScreen"
+            component={ExamsScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="MarksScreen"
+            component={MarksScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="InternalMarksScreen"
+            component={InternalMarksScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="AssignmentMarksScreen"
+            component={AssignmentMarksScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
