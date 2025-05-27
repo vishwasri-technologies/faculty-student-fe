@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     width: wp('6.4%'),
-    height: hp('3%'),
+    height: hp('4%'),
   },
   headerTitle: {
     fontSize: hp('2.5%'),

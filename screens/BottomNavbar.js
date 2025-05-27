@@ -11,7 +11,7 @@ const BottomNavbar = ({ activeTab }) => {
     { id: 'Home', label: 'Home', icon: require('../assets/home-icon.png'), screen: 'Home' },
     { id: 'Exams', label: 'Exams', icon: require('../assets/Exams.png'), screen: 'ExamsScreen' },
     { id: 'Marks', label: 'Marks', icon: require('../assets/Marks.png'), screen: 'MarksScreen' },
-    { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png'), screen: 'ProfileScreen' },
+    { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png'), screen: 'FacultyProfileScreen' },
   ];
 
   const handlePress = (tabId, screen) => {

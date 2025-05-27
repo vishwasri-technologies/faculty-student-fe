@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
     marginBottom: hp('3%'),
   },
   backIcon: {
-    width: wp('6%'),
-    height: wp('6%'),
+    width: wp('8%'),
+    height: wp('7%'),
     resizeMode: 'contain',
     marginRight: wp('4%'),
   },

@@ -154,8 +154,7 @@ const FacultyDashboard = () => {
           />
         </View>
       </ScrollView>
-
-      <BottomNavbar activeTab="Home" />
+<BottomNavbar activeTab="Home" />
     </View>
   );
 };
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
   },
   hamburgerImage: {
     height: hp(2),
-    width: wp(5),
+    width: wp(5.5),
   },
   overlay: {
     flex: 1,
@@ -294,7 +293,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: wp(3.5),
-    marginBottom: hp(2.5),
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -324,7 +322,7 @@ const styles = StyleSheet.create({
     lineHeight: hp(2.2),
   },
   viewMore: {
-    fontSize: hp(1.7),
+    fontSize: hp(1.9),
     color: '#1C7988',
   },
   announcementImage: {
