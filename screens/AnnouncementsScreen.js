@@ -66,9 +66,9 @@ header: {
   },
   headerTitle: {
     color: '#fff',
-    fontSize: hp('2.4%'),
+    fontSize: hp('2.8%'),
     fontWeight: 'bold',
-    marginLeft: wp('21%'),
+    marginLeft: wp('20%'),
   },
   card: {
     backgroundColor: '#fff',
@@ -82,13 +82,13 @@ header: {
     elevation: 4,
   },
   title: {
-    fontSize: 16,
+    fontSize: 19,
     fontWeight: '700',
     color: '#333',
     marginBottom: 4,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 17,
     color: '#666',
     marginBottom: 10,
   },

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     color: "#1C7988",
-    fontSize: hp('2.6%'),
+    fontSize: hp('2.8%'),
     fontWeight: 'bold',
     marginLeft: wp('30%'),
   },

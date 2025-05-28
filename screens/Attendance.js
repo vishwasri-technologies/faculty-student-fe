@@ -247,7 +247,7 @@ const AttendanceScreen = () => {
           <Text style={styles.courseTitle}>
             {selectedSchedule.title} ({selectedSchedule.class})
           </Text>
-          <FlatList
+          <FlatList  showsVerticalScrollIndicator={false} 
             data={students}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (

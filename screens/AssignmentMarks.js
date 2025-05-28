@@ -23,6 +23,7 @@ const AssignmentMarksScreen = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [studentMarks, setStudentMarks] = useState([]);
+  const [outOfMarks, setOutOfMarks] = useState('30');
 
   const subjects = [
     { title: 'Data Structures', subtitle: 'CSE 2nd-year' },
@@ -38,12 +39,14 @@ const AssignmentMarksScreen = () => {
     { name: 'Dhis Suresh', id: '214420862066', marks: '15' },
     { name: 'Edden Taneesh', id: '214420862058', marks: '15' },
     { name: 'Joss Umesh', id: '214420862068', marks: '15' },
+   
   ];
 
   const handleSubjectSelect = (subject) => {
     setSelectedSubject(subject);
     setStudentMarks([...defaultStudents]);
     setEditMode(false);
+     setOutOfMarks('30');
   };
 
   const handleEditToggle = () => {
@@ -60,6 +63,7 @@ const AssignmentMarksScreen = () => {
   const handleSubmit = () => {
     // You can send `studentMarks` to backend here
     console.log('Submitted Marks:', studentMarks);
+    console.log('Out of Marks:', outOfMarks);
     setEditMode(false);
   };
 
@@ -76,7 +80,7 @@ const AssignmentMarksScreen = () => {
       </View>
 
       {!selectedSubject ? (
-        <ScrollView contentContainerStyle={styles.cardContainer}>
+        <ScrollView contentContainerStyle={styles.cardContainer} showsVerticalScrollIndicator={false}>
           {subjects.map((item, index) => (
             <TouchableOpacity
               key={index}
@@ -109,8 +113,21 @@ const AssignmentMarksScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-
-          <FlatList
+           {/* Editable Out Of Marks */}
+                    <View style={styles.outOfMarksContainer}>
+                      <Text style={styles.outOfMarksLabel}>Out of Marks: </Text>
+                      {editMode ? (
+                        <TextInput
+                          style={styles.outOfMarksInput}
+                          keyboardType="numeric"
+                          value={outOfMarks}
+                          onChangeText={setOutOfMarks}
+                        />
+                      ) : (
+                        <Text style={styles.outOfMarksText}>{outOfMarks}</Text>
+                      )}
+                    </View>
+          <FlatList  showsVerticalScrollIndicator={false}
             data={studentMarks}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
@@ -127,7 +144,7 @@ const AssignmentMarksScreen = () => {
                     onChangeText={(text) => handleMarkChange(item.id, text)}
                   />
                 ) : (
-                  <Text style={styles.studentMarks}>{item.marks} / 30</Text>
+                  <Text style={styles.studentMarks}>{item.marks} / {outOfMarks}</Text>
                 )}
               </View>
             )}
@@ -162,7 +179,7 @@ const styles = StyleSheet.create({
     fontSize: wp('5.5%'),
     fontWeight: 'bold',
     color: '#007b8f',
-    marginLeft: wp('15%'),
+    marginLeft: wp('14%'),
   },
   cardContainer: {
     paddingBottom: hp('2%'),
@@ -234,6 +251,28 @@ const styles = StyleSheet.create({
     paddingVertical: hp('0.8%'),
     paddingHorizontal: wp('4%'),
     borderRadius: wp('1.5%'),
+  },
+   outOfMarksContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: hp('1.5%'),
+  },
+  outOfMarksLabel: {
+    fontSize: wp('4%'),
+    fontWeight: '600',
+    marginRight: wp('2%'),
+  },
+  outOfMarksInput: {
+    borderWidth: 1,
+    borderColor: '#007b8f',
+    borderRadius: wp('1%'),
+    width: wp('18%'),
+    textAlign: 'center',
+    paddingVertical: hp('0.5%'),
+  },
+  outOfMarksText: {
+    fontSize: wp('4%'),
+    fontWeight: '600',
   },
   studentCard: {
     flexDirection: 'row',

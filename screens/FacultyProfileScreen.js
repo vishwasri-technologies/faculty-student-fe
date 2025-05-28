@@ -35,7 +35,7 @@ const FacultyProfileScreen = ({ navigation }) => {
           <Detail label="Designation" value="Assistant Professor" />
           <Detail label="Department" value="Computer Engineering" />
           <Detail label="Experience" value="4+ Years" />
-          <Detail label="Subjects" value={"Machine Learning \n  Data Structures\n  Programming in C"} />
+          <Detail label="Subjects" value={"Machine Learning \n      Data Structures\n      Programming in C"} />
         </Section>
 
         <Section title="Personal Information">
@@ -43,12 +43,12 @@ const FacultyProfileScreen = ({ navigation }) => {
           <Detail label="Gender" value="Female" />
           <Detail label="Email ID" value="emily.carter@college.edu" />
           <Detail label="Mobile Number" value="9876543210" />
-          <Detail label="Address" value={"101, MG Road,\n  Bangalore, Karnataka,  \n  India – 560001"} />
+          <Detail label="Address" value={"101, MG Road,\n       Bangalore, Karnataka,  \n       India – 560001"} />
         </Section>
 
         <Section title="Academic Qualifications">
-          <Detail label="Undergraduation" value="B.com in Computer Application" />
-          <Detail label="Postgraduation" value="M.com in Computer Application" />
+          <Detail label="Undergraduation" value={"B.com in Computer\n      Application"} />
+          <Detail label="Postgraduation" value={"M.com in Computer\n      Application"} />
           <Detail label="Doctorate (Ph.D.)" value="Information Systems" />
           <Detail label="Certifications" value="AWS Certified Educator" />
         </Section>
@@ -71,7 +71,7 @@ const Section = ({ title, children }) => (
 const Detail = ({ label, value }) => (
   <View style={styles.detailRow}>
     <Text style={styles.detailLabel}>{label}</Text>
-    <Text style={styles.detailValue}>: {value}</Text>
+    <Text style={styles.detailValue}> -    {value}</Text>
   </View>
 );
 
