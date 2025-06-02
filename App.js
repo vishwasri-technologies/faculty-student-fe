@@ -20,6 +20,7 @@ import MarksScreen from './screens/MarksScreen';
 import InternalMarksScreen from './screens/InternalMarks';
 import AssignmentMarksScreen from './screens/AssignmentMarks';
 import FacultyProfileScreen from './screens/FacultyProfileScreen';
+import HelpDeskScreen from './screens/HelpDeskScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -112,6 +113,11 @@ const App = () => {
           <Stack.Screen
             name="FacultyProfileScreen"
             component={FacultyProfileScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="HelpDeskScreen"
+            component={HelpDeskScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

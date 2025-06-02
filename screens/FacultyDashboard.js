@@ -484,11 +484,11 @@ const FacultyDashboard = () => {
   };
 
   const sidebarItems = [
-    'About College',
-    'Contact Us',
-    'Help Desk',
-    'Reset Password',
-  ];
+  { label: 'Help Desk', route: 'HelpDeskScreen' },
+  { label: 'About College', route: '' },
+  { label: 'Reset Password', route: 'ForgotScreen' },
+];
+
 
   return (
     <View style={styles.container}>
@@ -507,14 +507,14 @@ const FacultyDashboard = () => {
           <View style={styles.sidebar}>
             <TouchableOpacity onPress={() => setIsSidebarVisible(false)}>
               <Image
-                source={require('../assets/back-arrow.png')} 
+                source={require('../assets/back-arrow.png')}
                 style={styles.backArrow}
               />
             </TouchableOpacity>
 
             {sidebarItems.map((item, index) => (
-              <TouchableOpacity key={index} style={styles.sidebarItem}>
-                <Text style={styles.sidebarItemText}>{item}</Text>
+              <TouchableOpacity key={index} style={styles.sidebarItem} onPress={() => navigation.navigate(item.route)}>
+                <Text style={styles.sidebarItemText}>{item.label}</Text>
               </TouchableOpacity>
             ))}
             <TouchableOpacity onPress={() => setIsLogoutModalVisible(true)}>
