@@ -56,7 +56,7 @@ const CalendarScreen = () => {
 
           {/* Download link immediately after subtitle */}
           <TouchableOpacity onPress={handleDownload}>
-            <Text style={styles.downloadLink}>Download PDF</Text>
+            <Text style={styles.downloadLink}>View PDF</Text>
           </TouchableOpacity>
 
           {expanded && (

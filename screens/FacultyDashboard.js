@@ -626,7 +626,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   hamburgerImage: {
-    height: hp(2),
+    height: hp(2.6),
     width: wp(5.5),
   },
   overlay: {
