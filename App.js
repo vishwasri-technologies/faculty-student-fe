@@ -21,6 +21,10 @@ import InternalMarksScreen from './screens/InternalMarks';
 import AssignmentMarksScreen from './screens/AssignmentMarks';
 import FacultyProfileScreen from './screens/FacultyProfileScreen';
 import HelpDeskScreen from './screens/HelpDeskScreen';
+import StudentDashboard from './screens/StudentDashboard';
+import StudentBottomNavbar from './screens/StudentBottomNavbar';
+import StudentOverallAttendance from './screens/StudentOverallAttendance';
+import StudentScheduleScreen from './screens/StudentScheduleScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -118,6 +122,26 @@ const App = () => {
            <Stack.Screen
             name="HelpDeskScreen"
             component={HelpDeskScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="StudentDashboard"
+            component={StudentDashboard}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="StudentBottomNavbar"
+            component={StudentBottomNavbar}
+            options={{ headerShown: false }}
+          />
+            <Stack.Screen
+            name="StudentOverallAttendance"
+            component={StudentOverallAttendance}
+            options={{ headerShown: false }}
+          />
+            <Stack.Screen
+            name="StudentScheduleScreen"
+            component={StudentScheduleScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

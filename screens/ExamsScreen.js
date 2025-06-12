@@ -46,13 +46,13 @@ const ExamsScreen = () => {
     <View style={styles.card}>
       <View style={styles.cardHeader}>
         <Text style={styles.examTitle}>{item.title}</Text>
-        <Image
+        {/* <Image
           source={require('../assets/down-arrow.png')}
           style={styles.downArrow}
-        />
+        /> */}
       </View>
       <TouchableOpacity onPress={() => Linking.openURL(item.pdfLink)}>
-        <Text style={styles.downloadText}>Download PDF</Text>
+        <Text style={styles.downloadText}>View PDF</Text>
       </TouchableOpacity>
     </View>
   );
@@ -212,6 +212,8 @@ const styles = StyleSheet.create({
     color: '#3366FF',
     marginTop: 8,
     fontWeight: '500',
+    textDecorationLine:'underline',
+    marginLeft:'220'
   },
   modalOverlay: {
     flex: 1,
