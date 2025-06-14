@@ -1,6 +1,4 @@
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,7 +12,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -22,9 +20,30 @@ import {
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [role, setRole] = useState('student'); // default role
+
+  // Grab role from route params (from SignUp)
+  useEffect(() => {
+    if (route.params?.role) {
+      setRole(route.params.role);
+    }
+  }, [route.params?.role]);
+
+  const handleLogin = () => {
+    if (role === 'student') {
+      navigation.navigate('StudentDashboard');
+    } else if (role === 'faculty') {
+      navigation.navigate('Home');
+    } else {
+      alert('Invalid role');
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -89,11 +108,7 @@ const LoginScreen = () => {
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity
-            style={styles.loginButton}
-             onPress={() => navigation.navigate('StudentDashboard')}
-            //  onPress={() => navigation.navigate('Home')}
-          >
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
 

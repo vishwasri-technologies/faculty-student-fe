@@ -10,7 +10,7 @@ const StudentBottomNavbar = ({ activeTab }) => {
   const tabs = [
     { id: 'Home', label: 'Home', icon: require('../assets/home-icon.png'), screen: 'StudentDashboard' },
     { id: 'Exams', label: 'Exams', icon: require('../assets/Exams.png'), screen: 'StudentExamsScreen' },
-    { id: 'Notes', label: 'Notes', icon: require('../assets/Marks.png'), screen: '' },
+    { id: 'Notes', label: 'Notes', icon: require('../assets/Marks.png'), screen: 'StudentNotesAssignments' },
     { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png'), screen: '' },
   ];
 

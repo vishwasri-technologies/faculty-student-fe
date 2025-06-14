@@ -28,6 +28,8 @@ import StudentScheduleScreen from './screens/StudentScheduleScreen';
 import StudentAcademicCalendar from './screens/StudentAcademicCalendar';
 import StudentAnnouncements from './screens/StudentAnnouncements';
 import StudentExamsScreen from './screens/StudentExamsScreen';
+import StudentSemesterMarks from "./screens/StudentSemesterMarks";
+import StudentNotesAssignments from './screens/StudentNotesAssignments';
 
 
 const Stack = createNativeStackNavigator();
@@ -37,7 +39,7 @@ const App = () => {
     <>
       <StatusBar 
         barStyle="dark-content"
-        backgroundColor="#1C7988CF"
+        backgroundColor="#1C7988"
         translucent={false}
       />
       <NavigationContainer>
@@ -160,6 +162,16 @@ const App = () => {
            <Stack.Screen
             name="StudentExamsScreen"
             component={StudentExamsScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="StudentSemesterMarks"
+            component={StudentSemesterMarks}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="StudentNotesAssignments"
+            component={StudentNotesAssignments}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
