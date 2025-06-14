@@ -40,7 +40,7 @@ const StudentDashboard = () => {
       name: 'Academic Calendar',
       image: require('../assets/Home-3.png'),
       bgColor: '#F5DBD7',
-      screenName: '',
+      screenName: 'StudentAcademicCalendar',
     },
   ];
 
@@ -195,7 +195,7 @@ const StudentDashboard = () => {
               resizeMode="cover"
             />
             <TouchableOpacity
-              onPress={() => navigation.navigate('AnnouncementsScreen')}
+              onPress={() => navigation.navigate('StudentAnnouncements')}
               style={{ marginTop: hp(1) }}
             >
               <Text style={styles.viewMore}>View more</Text>

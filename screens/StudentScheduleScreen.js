@@ -1,21 +1,24 @@
+
 // import React, { useState, useEffect } from 'react';
 // import {
 //   View,
 //   Text,
 //   StyleSheet,
-//   TouchableOpacity,
-//   SafeAreaView,
-//   Image,
 //   ScrollView,
-//   FlatList,
-//   Modal,
+//   SafeAreaView,
+//   TouchableOpacity,
+//   Dimensions,
+//   Image,
+//   FlatList
 // } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+// import StudentBottomNavbar from './StudentBottomNavbar';
 // import {
 //   widthPercentageToDP as wp,
 //   heightPercentageToDP as hp,
 // } from 'react-native-responsive-screen';
-// import { useNavigation } from '@react-navigation/native';
-// import StudentBottomNavbar from './StudentBottomNavbar';
+
+// const { width } = Dimensions.get('window');
 
 // const StudentScheduleScreen = () => {
 //   const navigation = useNavigation();
@@ -26,42 +29,6 @@
 //   const [showMonthPicker, setShowMonthPicker] = useState(false);
 //   const [showYearPicker, setShowYearPicker] = useState(false);
 //   const [showCalendar, setShowCalendar] = useState(false);
-
-//   // Full 7-day week array (Sun to Sat)
-//   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-//   const scheduleData = [
-//     {
-//       id: '1',
-//       title: 'Data Structures',
-//       time: '9:00 AM - 10:00 AM',
-//       status: 'Absent',
-//     },
-//     {
-//       id: '2',
-//       title: 'Programming in C',
-//       time: '10:00 AM - 11:00 AM',
-//       status: 'Present',
-//     },
-//     {
-//       id: '3',
-//       title: 'Algorithms',
-//       time: '11:00 AM - 12:00 PM',
-//       status: 'Present',
-//     },
-//     {
-//       id: '4',
-//       title: 'Java Programming',
-//       time: '12:00 PM - 01:00 PM',
-//       status: 'Present',
-//     },
-//     {
-//       id: '5',
-//       title: 'Programming in C Lab',
-//       time: '02:00 PM - 03:00 PM',
-//       status: 'None',
-//     },
-//   ];
 
 //   // Initialize months and years data
 //   useEffect(() => {
@@ -81,14 +48,14 @@
 //   const generateDays = () => {
 //     const year = currentDate.getFullYear();
 //     const month = currentDate.getMonth();
-//     const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 (Sun) to 6 (Sat)
+//     const firstDay = new Date(year, month, 1).getDay();
 //     const daysInMonth = new Date(year, month + 1, 0).getDate();
     
 //     const days = [];
 
 //     // Add empty slots for days before the 1st of the month
-//     for (let i = 0; i < firstDayOfMonth; i++) {
-//       days.push({ id: `empty-start-${i}`, empty: true });
+//     for (let i = 0; i < firstDay; i++) {
+//       days.push({ id: `empty-${i}`, empty: true });
 //     }
 
 //     // Add actual days of the month
@@ -98,15 +65,8 @@
 //         id: `${i}`,
 //         date: i,
 //         fullDate: date,
-//         isSelected: date.toDateString() === selectedDate.toDateString(),
+//         isSelected: date.toDateString() === selectedDate.toDateString()
 //       });
-//     }
-
-//     // Ensure the grid is complete by adding empty slots at the end
-//     const totalSlots = days.length;
-//     const remainingSlots = (7 - (totalSlots % 7)) % 7; // Fill up to the nearest multiple of 7
-//     for (let i = 0; i < remainingSlots; i++) {
-//       days.push({ id: `empty-end-${i}`, empty: true });
 //     }
 
 //     return days;
@@ -116,434 +76,410 @@
 
 //   const handleDateSelect = (date) => {
 //     setSelectedDate(date);
-//     setShowCalendar(false);
-//     setCurrentDate(date);
+//     setShowCalendar(false); // Hide calendar after selection
 //   };
 
 //   const changeMonth = (monthIndex) => {
-//     const newDate = new Date(currentDate.getFullYear(), monthIndex, 1); // Set to 1st of the month
-//     setCurrentDate(newDate);
+//     setCurrentDate(new Date(currentDate.getFullYear(), monthIndex, 1));
 //     setShowMonthPicker(false);
+//     setShowCalendar(true); // Show calendar after month selection
 //   };
 
 //   const changeYear = (year) => {
-//     const newDate = new Date(year, currentDate.getMonth(), 1); // Set to 1st of the month
-//     setCurrentDate(newDate);
+//     setCurrentDate(new Date(year, currentDate.getMonth(), 1));
 //     setShowYearPicker(false);
+//     setShowCalendar(true); // Show calendar after year selection
 //   };
 
 //   const toggleCalendar = () => {
 //     setShowCalendar(!showCalendar);
 //   };
 
-//   const getDatesForStrip = () => {
-//     const dates = [];
-//     const base = new Date(selectedDate);
-//     for (let i = -2; i <= 2; i++) {
-//       const d = new Date(base);
-//       d.setDate(base.getDate() + i);
-//       dates.push(d);
-//     }
-//     return dates;
-//   };
-
-//   const formattedMonthYear = () => {
-//     const monthNames = [
-//       'January', 'February', 'March', 'April', 'May', 'June',
-//       'July', 'August', 'September', 'October', 'November', 'December',
-//     ];
-//     return `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-//   };
+//   // Schedule data - would typically come from an API
+//   const scheduleData = [
+//     {
+//       id: '1',
+//       title: 'Data Structures',
+//       time: '9:00 AM - 10:00 AM',
+//        status: 'Absent',
+//     },
+//     {
+//       id: '2',
+//       title: 'Programming in C',
+//       time: '10:00 AM - 11:00 AM',
+//        status: 'Present',
+//     },
+//     {
+//       id: '3',
+//       title: 'Algorithms',
+//       time: '11:00 AM - 12:00 AM',
+//         status: 'Present',
+//     },
+//      {
+//       id: '4',
+//       title: 'Java Programming',
+//       time: '12:00 AM - 01:00 AM',
+//        status: 'None',
+//     },
+//   ];
 
 //   return (
 //     <SafeAreaView style={styles.container}>
-//       {/* Header */}
 //       <View style={styles.header}>
 //         <TouchableOpacity onPress={() => navigation.goBack()}>
-//           <Image
+//           <Image 
 //             source={require('../assets/backarrow.png')}
 //             style={styles.backIcon}
 //           />
 //         </TouchableOpacity>
 //         <Text style={styles.headerTitle}>Today's Schedule</Text>
-//         <TouchableOpacity onPress={toggleCalendar}>
-//           <Text style={styles.monthText}>{formattedMonthYear()}</Text>
-//         </TouchableOpacity>
+//         <View style={{ width: wp('6.4%') }} />
 //       </View>
 
-//       {/* Calendar Modal */}
-//       <Modal
-//         visible={showCalendar}
-//         transparent={true}
-//         animationType="slide"
-//         onRequestClose={() => setShowCalendar(false)}
+//       {/* Date Display with Calendar Toggle */}
+//       <TouchableOpacity 
+//         style={styles.dateDisplayContainer}
+//         onPress={toggleCalendar}
 //       >
-//         <View style={styles.modalOverlay}>
-//           <View style={styles.calendarContainer}>
-//             {/* Calendar Header */}
-//             <View style={styles.calendarHeader}>
-//               <TouchableOpacity onPress={() => setShowYearPicker(true)}>
-//                 <Text style={styles.calendarHeaderText}>{currentDate.getFullYear()}</Text>
-//               </TouchableOpacity>
-//               <TouchableOpacity onPress={() => setShowMonthPicker(true)}>
-//                 <Text style={styles.calendarHeaderText}>
-//                   {months[currentDate.getMonth()]?.name || ''}
+//         <Text style={styles.selectedDateText}>
+//           {selectedDate.toLocaleDateString('en-US', {
+//             weekday: 'short',
+//             month: 'short',
+//             day: 'numeric',
+//             year: 'numeric',
+//           })}
+//         </Text>
+//         <Image
+//           source={require('../assets/calendar.jpg')}
+//           style={styles.calendarIcon}
+//         />
+//       </TouchableOpacity>
+
+//       {/* Month/Year Selector - Only shown when calendar is visible */}
+//       {showCalendar && (
+//         <View style={styles.monthYearSelector}>
+//           <TouchableOpacity
+//             style={styles.monthYearButton}
+//             onPress={() => setShowMonthPicker(!showMonthPicker)}
+//           >
+//             <Text style={styles.monthYearText}>
+//               {months[currentDate.getMonth()]?.name || ''}
+//             </Text>
+//           </TouchableOpacity>
+//           <TouchableOpacity
+//             style={styles.monthYearButton}
+//             onPress={() => setShowYearPicker(!showYearPicker)}
+//           >
+//             <Text style={styles.monthYearText}>
+//               {currentDate.getFullYear()}
+//             </Text>
+//           </TouchableOpacity>
+//         </View>
+//       )}
+
+//       {/* Month Picker */}
+//       {showMonthPicker && (
+//         <View style={styles.pickerContainer}>
+//           <FlatList
+//             data={months}
+//             numColumns={3}
+//             keyExtractor={(item) => item.index.toString()}
+//             renderItem={({ item }) => (
+//               <TouchableOpacity
+//                 style={styles.pickerItem}
+//                 onPress={() => changeMonth(item.index)}
+//               >
+//                 <Text style={[
+//                   styles.pickerItemText,
+//                   currentDate.getMonth() === item.index && styles.pickerItemSelected
+//                 ]}>
+//                   {item.name}
 //                 </Text>
 //               </TouchableOpacity>
-//             </View>
+//             )}
+//           />
+//         </View>
+//       )}
 
-//             {/* Weekdays Row - Ensure all 7 days are displayed */}
-//             <View style={styles.weekdaysContainer}>
-//               {weekdays.map((day) => (
-//                 <Text key={day} style={styles.weekdayText}>
-//                   {day}
+//       {/* Year Picker */}
+//       {showYearPicker && (
+//         <View style={styles.pickerContainer}>
+//           <FlatList
+//             data={years}
+//             numColumns={3}
+//             keyExtractor={(item) => item.toString()}
+//             renderItem={({ item }) => (
+//               <TouchableOpacity
+//                 style={styles.pickerItem}
+//                 onPress={() => changeYear(item)}
+//               >
+//                 <Text style={[
+//                   styles.pickerItemText,
+//                   currentDate.getFullYear() === item && styles.pickerItemSelected
+//                 ]}>
+//                   {item}
 //                 </Text>
-//               ))}
-//             </View>
+//               </TouchableOpacity>
+//             )}
+//           />
+//         </View>
+//       )}
 
-//             {/* Days Grid */}
-//             <View style={styles.daysContainer}>
-//               {days.map((day) => (
-//                 <TouchableOpacity
-//                   key={day.id}
-//                   style={[
-//                     styles.dayButton,
-//                     day.isSelected && styles.selectedDayButton,
-//                     day.empty && styles.emptyDay,
-//                   ]}
-//                   onPress={() => !day.empty && handleDateSelect(day.fullDate)}
-//                   disabled={day.empty}
-//                 >
-//                   <Text
-//                     style={[
-//                       styles.dayText,
-//                       day.isSelected && styles.selectedDayText,
-//                     ]}
-//                   >
-//                     {day.empty ? '' : day.date}
+//       {/* Calendar Grid - Only shown when calendar is visible */}
+//       {showCalendar && (
+//         <>
+//           {/* Day Names Header */}
+//           <View style={styles.dayNamesContainer}>
+//             {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
+//               <Text key={index} style={styles.dayNameText}>{day}</Text>
+//             ))}
+//           </View>
+
+//           {/* Calendar Days */}
+//           <View style={styles.calendarGrid}>
+//             {days.map((day) => (
+//               <TouchableOpacity
+//                 key={day.id}
+//                 style={[
+//                   styles.dayContainer,
+//                   day.empty && styles.emptyDay,
+//                   day.isSelected && styles.activeDayContainer
+//                 ]}
+//                 onPress={() => !day.empty && handleDateSelect(day.fullDate)}
+//                 disabled={day.empty}
+//               >
+//                 {!day.empty && (
+//                   <Text style={[
+//                     styles.dateText,
+//                     day.isSelected && styles.activeDateText
+//                   ]}>
+//                     {day.date}
 //                   </Text>
-//                 </TouchableOpacity>
-//               ))}
-//             </View>
-
-//             {/* Close Button */}
-//             <TouchableOpacity
-//               style={styles.closeButton}
-//               onPress={() => setShowCalendar(false)}
-//             >
-//               <Text style={styles.closeButtonText}>Close</Text>
-//             </TouchableOpacity>
+//                 )}
+//               </TouchableOpacity>
+//             ))}
 //           </View>
-//         </View>
-//       </Modal>
+//         </>
+//       )}
 
-//       {/* Month Picker Modal */}
-//       <Modal
-//         visible={showMonthPicker}
-//         transparent={true}
-//         animationType="slide"
-//       >
-//         <View style={styles.modalOverlay}>
-//           <View style={styles.pickerContainer}>
-//             <FlatList
-//               data={months}
-//               keyExtractor={(item) => item.index.toString()}
-//               renderItem={({ item }) => (
-//                 <TouchableOpacity
-//                   style={styles.pickerItem}
-//                   onPress={() => changeMonth(item.index)}
-//                 >
-//                   <Text style={styles.pickerItemText}>{item.name}</Text>
-//                 </TouchableOpacity>
-//               )}
-//             />
-//             <TouchableOpacity
-//               style={styles.closeButton}
-//               onPress={() => setShowMonthPicker(false)}
-//             >
-//               <Text style={styles.closeButtonText}>Close</Text>
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       </Modal>
-
-//       {/* Year Picker Modal */}
-//       <Modal
-//         visible={showYearPicker}
-//         transparent={true}
-//         animationType="slide"
-//       >
-//         <View style={styles.modalOverlay}>
-//           <View style={styles.pickerContainer}>
-//             <FlatList
-//               data={years}
-//               keyExtractor={(item) => item.toString()}
-//               renderItem={({ item }) => (
-//                 <TouchableOpacity
-//                   style={styles.pickerItem}
-//                   onPress={() => changeYear(item)}
-//                 >
-//                   <Text style={styles.pickerItemText}>{item}</Text>
-//                 </TouchableOpacity>
-//               )}
-//             />
-//             <TouchableOpacity
-//               style={styles.closeButton}
-//               onPress={() => setShowYearPicker(false)}
-//             >
-//               <Text style={styles.closeButtonText}>Close</Text>
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       </Modal>
-
-//       {/* Horizontal Date Strip */}
-//       <View style={styles.dateStrip}>
-//         {getDatesForStrip().map((date, index) => {
-//           const isSelected = date.toDateString() === selectedDate.toDateString();
-//           return (
-//             <TouchableOpacity
-//               key={index}
-//               onPress={() => handleDateSelect(date)}
-//               style={[
-//                 styles.dateBox,
-//                 isSelected && styles.activeDateBox,
-//               ]}
-//             >
-//               <Text style={[styles.dayText, isSelected && styles.activeText]}>
-//                 {weekdays[date.getDay()]}
-//               </Text>
-//               <Text style={[styles.dateText, isSelected && styles.activeText]}>
-//                 {date.getDate()}
-//               </Text>
-//             </TouchableOpacity>
-//           );
-//         })}
-//       </View>
-
-//       {/* Schedule Cards */}
+//       {/* Schedule List */}
 //       <ScrollView style={styles.scheduleContainer}>
-//         {scheduleData.map((item) => (
-//           <View key={item.id} style={styles.card}>
-//             <View style={styles.cardHeader}>
-//               <Text style={styles.title}>{item.title}</Text>
-//               {item.status !== 'None' && (
-//                 <View
-//                   style={[
-//                     styles.statusBox,
-//                     item.status === 'Present'
-//                       ? styles.present
-//                       : styles.absent,
-//                   ]}
-//                 >
-//                   <Text
-//                     style={[
-//                       styles.statusText,
-//                       item.status === 'Present'
-//                         ? { color: 'green' }
-//                         : { color: 'red' },
-//                     ]}
-//                   >
-//                     {item.status}
-//                   </Text>
-//                 </View>
-//               )}
+//         {scheduleData.map((item, index) => (
+//           <View key={item.id}>
+//             <View style={styles.scheduleCard}>
+//               <Text style={styles.courseTitle}>{item.title}</Text>
+//               <Text style={styles.timeText}>{item.time}</Text>
+//               <Text style={styles.courseInfo}>{item.class}</Text>
 //             </View>
-//             <Text style={styles.time}>{item.time}</Text>
+//             {index < scheduleData.length - 1 && <View style={styles.divider} />}
 //           </View>
 //         ))}
 //       </ScrollView>
-
-//       <StudentBottomNavbar />
+//       <StudentBottomNavbar/>
 //     </SafeAreaView>
 //   );
 // };
 
 // const styles = StyleSheet.create({
-//   container: { flex: 1, backgroundColor: '#F8F8F8' },
-
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#f5f5f5',
+//   },
 //   header: {
 //     flexDirection: 'row',
 //     justifyContent: 'space-between',
 //     alignItems: 'center',
-//     backgroundColor: '#1C7988',
 //     padding: hp('2%'),
+//     backgroundColor: '#1C7988',
+//     borderBottomWidth: 1,
+//     borderBottomColor: '#e0e0e0',
 //   },
-//   backIcon: { width: wp('6%'), height: hp('3%') },
+//   backIcon: {
+//     width: wp('6.4%'),
+//     height: hp('4%'),
+//   },
 //   headerTitle: {
-//     fontSize: hp('2.2%'),
+//     fontSize: hp('2.5%'),
 //     fontWeight: 'bold',
 //     color: 'white',
 //   },
-//   monthText: {
-//     color: 'white',
-//     fontSize: hp('1.8%'),
-//   },
-
-//   // Calendar styles
-//   modalOverlay: {
-//     flex: 1,
-//     backgroundColor: 'rgba(0,0,0,0.5)',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   calendarContainer: {
-//     backgroundColor: 'white',
-//     borderRadius: wp('4%'),
-//     padding: hp('2%'),
-//     width: wp('90%'),
-//   },
-//   calendarHeader: {
+//   dateDisplayContainer: {
 //     flexDirection: 'row',
 //     justifyContent: 'space-between',
-//     marginBottom: hp('2%'),
+//     alignItems: 'center',
+//     padding: hp('2%'),
+//     backgroundColor: 'white',
+//     marginHorizontal: wp('4%'),
+//     marginTop: hp('1%'),
+//     borderRadius: wp('2%'),
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: 1 },
+//     shadowOpacity: 0.1,
+//     shadowRadius: wp('0.5%'),
+//     elevation: 2,
 //   },
-//   calendarHeaderText: {
-//     fontSize: hp('2.5%'),
+//   selectedDateText: {
+//     fontSize: hp('2%'),
 //     fontWeight: 'bold',
 //     color: '#1C7988',
 //   },
-//   weekdaysContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     marginBottom: hp('1%'),
+//   calendarIcon: {
+//     width: wp('8%'),
+//     height: hp('4%'),
 //   },
-//   weekdayText: {
-//     width: wp('12%'),
-//     textAlign: 'center',
+//   monthYearSelector: {
+//     flexDirection: 'row',
+//     justifyContent: 'center',
+//     paddingVertical: hp('1.2%'),
+//     backgroundColor: 'white',
+//     marginHorizontal: wp('4%'),
+//     marginTop: hp('1%'),
+//     borderRadius: wp('2%'),
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: 1 },
+//     shadowOpacity: 0.1,
+//     shadowRadius: wp('0.5%'),
+//     elevation: 2,
+//   },
+//   monthYearButton: {
+//     paddingHorizontal: wp('5%'),
+//     paddingVertical: hp('1%'),
+//     marginHorizontal: wp('1.2%'),
+//     borderRadius: wp('5%'),
+//     backgroundColor: '#f5f5f5',
+//   },
+//   monthYearText: {
+//     fontSize: hp('2%'),
+//     fontWeight: 'bold',
+//     color: '#1C7988',
+//   },
+//   pickerContainer: {
+//     backgroundColor: 'white',
+//     padding: hp('1.2%'),
+//     marginHorizontal: wp('4%'),
+//     borderRadius: wp('2%'),
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: wp('0.5%') },
+//     shadowOpacity: 0.1,
+//     shadowRadius: wp('1%'),
+//     elevation: 2,
+//     position: 'absolute',
+//     top: hp('20%'),
+//     left: 0,
+//     right: 0,
+//     zIndex: 10,
+//   },
+//   pickerItem: {
+//     flex: 1,
+//     padding: hp('1.2%'),
+//     alignItems: 'center',
+//   },
+//   pickerItemText: {
+//     fontSize: hp('1.8%'),
+//     color: '#333',
+//   },
+//   pickerItemSelected: {
+//     fontWeight: 'bold',
+//     color: '#1C7988',
+//   },
+//   dayNamesContainer: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-around',
+//     paddingVertical: hp('1.2%'),
+//     backgroundColor: 'white',
+//     marginHorizontal: wp('4%'),
+//   },
+//   dayNameText: {
 //     fontSize: hp('1.8%'),
 //     fontWeight: 'bold',
 //     color: '#666',
+//     width: wp('11.4%'),
+//     textAlign: 'center',
 //   },
-//   daysContainer: {
+//   calendarGrid: {
 //     flexDirection: 'row',
 //     flexWrap: 'wrap',
-//     justifyContent: 'space-between',
+//     backgroundColor: 'white',
+//     paddingBottom: hp('1.2%'),
+//     marginHorizontal: wp('4%'),
+//     borderRadius: wp('2%'),
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: 1 },
+//     shadowOpacity: 0.1,
+//     shadowRadius: wp('0.5%'),
+//     elevation: 2,
 //   },
-//   dayButton: {
-//     width: wp('12%'),
-//     height: wp('12%'),
-//     justifyContent: 'center',
+//   dayContainer: {
+//     width: `${100 / 7}%`,
 //     alignItems: 'center',
-//     marginVertical: hp('0.5%'),
-//   },
-//   selectedDayButton: {
-//     backgroundColor: '#1C7988',
-//     borderRadius: wp('6%'),
+//     justifyContent: 'center',
+//     paddingVertical: hp('1.5%'),
+//     aspectRatio: 1,
 //   },
 //   emptyDay: {
 //     backgroundColor: 'transparent',
 //   },
-//   dayText: {
-//     fontSize: hp('2%'),
-//     color: '#333',
-//   },
-//   selectedDayText: {
-//     color: 'white',
-//   },
-//   closeButton: {
-//     marginTop: hp('2%'),
-//     padding: hp('1.5%'),
+//   activeDayContainer: {
 //     backgroundColor: '#1C7988',
-//     borderRadius: wp('2%'),
-//     alignItems: 'center',
-//   },
-//   closeButtonText: {
-//     color: 'white',
-//     fontSize: hp('2%'),
-//     fontWeight: 'bold',
-//   },
-
-//   // Picker styles
-//   pickerContainer: {
-//     backgroundColor: 'white',
-//     borderRadius: wp('4%'),
-//     padding: hp('2%'),
-//     width: wp('70%'),
-//     maxHeight: hp('60%'),
-//   },
-//   pickerItem: {
-//     padding: hp('1.5%'),
-//     borderBottomWidth: 1,
-//     borderBottomColor: '#eee',
-//   },
-//   pickerItemText: {
-//     fontSize: hp('2%'),
-//     color: '#333',
-//     textAlign: 'center',
-//   },
-
-//   // Existing styles
-//   dateStrip: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     backgroundColor: '#fff',
-//     marginVertical: hp('1%'),
-//     paddingVertical: hp('1%'),
-//     marginHorizontal: wp('3%'),
-//     borderRadius: wp('3%'),
-//     elevation: 2,
-//   },
-//   dateBox: {
-//     alignItems: 'center',
-//     padding: wp('2.5%'),
-//     borderRadius: wp('3%'),
-//   },
-//   activeDateBox: {
-//     backgroundColor: '#1C7988',
+//     borderRadius: wp('5%'),
 //   },
 //   dateText: {
 //     fontSize: hp('2%'),
-//     fontWeight: 'bold',
-//     color: '#444',
+//     fontWeight: '500',
+//     color: '#333',
 //   },
-//   activeText: {
+//   activeDateText: {
 //     color: 'white',
+//     fontWeight: 'bold',
 //   },
 //   scheduleContainer: {
-//     paddingHorizontal: wp('4%'),
-//   },
-//   card: {
-//     backgroundColor: '#fff',
-//     borderRadius: wp('3%'),
+//     flex: 1,
 //     padding: hp('2%'),
-//     marginBottom: hp('1.2%'),
-//     elevation: 1,
 //   },
-//   cardHeader: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
+//   scheduleCard: {
+//     backgroundColor: 'white',
+//     borderRadius: wp('2%'),
+//     padding: hp('2%'),
+//     marginBottom: hp('1%'),
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: 1 },
+//     shadowOpacity: 0.1,
+//     shadowRadius: wp('0.5%'),
+//     elevation: 2,
 //   },
-//   title: {
+//   courseTitle: {
 //     fontSize: hp('2%'),
 //     fontWeight: 'bold',
 //     color: '#333',
+//     marginBottom: hp('1%'),
 //   },
-//   time: {
+//   timeText: {
 //     fontSize: hp('1.8%'),
-//     marginTop: hp('0.5%'),
 //     color: '#666',
 //   },
-//   statusBox: {
-//     borderRadius: wp('2%'),
-//     borderWidth: 1,
-//     paddingHorizontal: wp('2.5%'),
-//     paddingVertical: hp('0.3%'),
+//   courseInfo: {
+//     fontSize: hp('1.8%'),
+//     color: '#666',
 //   },
-//   statusText: {
-//     fontSize: hp('1.6%'),
-//     fontWeight: '600',
-//   },
-//   present: {
-//     borderColor: 'green',
-//   },
-//   absent: {
-//     borderColor: 'red',
+//   divider: {
+//     height: 1,
+//     backgroundColor: '#e0e0e0',
+//     marginVertical: hp('1%'),
 //   },
 // });
 
 // export default StudentScheduleScreen;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -554,19 +490,19 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
   ScrollView,
-  FlatList,
-  Modal,
+  SafeAreaView,
+  TouchableOpacity,
+  Dimensions,
+  Image,
+  FlatList
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import StudentBottomNavbar from './StudentBottomNavbar';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
-import StudentBottomNavbar from './StudentBottomNavbar';
 
 const StudentScheduleScreen = () => {
   const navigation = useNavigation();
@@ -578,43 +514,6 @@ const StudentScheduleScreen = () => {
   const [showYearPicker, setShowYearPicker] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
 
-  // Full 7-day week array (Sun to Sat)
-  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-  const scheduleData = [
-    {
-      id: '1',
-      title: 'Data Structures',
-      time: '9:00 AM - 10:00 AM',
-      status: 'Absent',
-    },
-    {
-      id: '2',
-      title: 'Programming in C',
-      time: '10:00 AM - 11:00 AM',
-      status: 'Present',
-    },
-    {
-      id: '3',
-      title: 'Algorithms',
-      time: '11:00 AM - 12:00 PM',
-      status: 'Present',
-    },
-    {
-      id: '4',
-      title: 'Java Programming',
-      time: '12:00 PM - 01:00 PM',
-      status: 'Present',
-    },
-    {
-      id: '5',
-      title: 'Programming in C Lab',
-      time: '02:00 PM - 03:00 PM',
-      status: 'None',
-    },
-  ];
-
-  // Initialize months and years data
   useEffect(() => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"];
@@ -628,38 +527,25 @@ const StudentScheduleScreen = () => {
     setYears(yearList);
   }, []);
 
-  // Generate days for the current month
   const generateDays = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 (Sun) to 6 (Sat)
+    const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     
     const days = [];
-
-    // Add empty slots for days before the 1st of the month
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      days.push({ id: `empty-start-${i}`, empty: true });
+    for (let i = 0; i < firstDay; i++) {
+      days.push({ id: `empty-${i}`, empty: true });
     }
-
-    // Add actual days of the month
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(year, month, i);
       days.push({
         id: `${i}`,
         date: i,
         fullDate: date,
-        isSelected: date.toDateString() === selectedDate.toDateString(),
+        isSelected: date.toDateString() === selectedDate.toDateString()
       });
     }
-
-    // Ensure the grid is complete by adding empty slots at the end
-    const totalSlots = days.length;
-    const remainingSlots = (42 - totalSlots) > 0 ? (42 - totalSlots) : 0; // Always show 6 rows (42 cells)
-    for (let i = 0; i < remainingSlots; i++) {
-      days.push({ id: `empty-end-${i}`, empty: true });
-    }
-
     return days;
   };
 
@@ -668,431 +554,370 @@ const StudentScheduleScreen = () => {
   const handleDateSelect = (date) => {
     setSelectedDate(date);
     setShowCalendar(false);
-    // Don't update currentDate here to keep viewing the same month
   };
 
   const changeMonth = (monthIndex) => {
-    const newDate = new Date(currentDate.getFullYear(), monthIndex, 1);
-    setCurrentDate(newDate);
+    setCurrentDate(new Date(currentDate.getFullYear(), monthIndex, 1));
     setShowMonthPicker(false);
+    setShowCalendar(true);
   };
 
   const changeYear = (year) => {
-    const newDate = new Date(year, currentDate.getMonth(), 1);
-    setCurrentDate(newDate);
+    setCurrentDate(new Date(year, currentDate.getMonth(), 1));
     setShowYearPicker(false);
+    setShowCalendar(true);
   };
 
   const toggleCalendar = () => {
     setShowCalendar(!showCalendar);
   };
 
-  const getDatesForStrip = () => {
-    const dates = [];
-    const base = new Date(selectedDate);
-    for (let i = -2; i <= 2; i++) {
-      const d = new Date(base);
-      d.setDate(base.getDate() + i);
-      dates.push(d);
-    }
-    return dates;
-  };
-
-  const formattedMonthYear = () => {
-    const monthNames = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December',
-    ];
-    return `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-  };
+  const scheduleData = [
+    { id: '1', title: 'Data Structures', time: '9:00 AM - 10:00 AM', status: 'Absent' },
+    { id: '2', title: 'Programming in C', time: '10:00 AM - 11:00 AM', status: 'Present' },
+    { id: '3', title: 'Algorithms', time: '11:00 AM - 12:00 PM', status: 'Present' },
+    { id: '4', title: 'Java Programming', time: '12:00 PM - 01:00 PM', status: 'Present' },
+    { id: '5', title: 'Programming in C Lab', time: '02:00 PM - 03:00 PM', status: '' },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image
-            source={require('../assets/backarrow.png')}
-            style={styles.backIcon}
-          />
+          <Image source={require('../assets/backarrow.png')} style={styles.backIcon} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Today's Schedule</Text>
-        <TouchableOpacity onPress={toggleCalendar}>
-          <Text style={styles.monthText}>{formattedMonthYear()}</Text>
-        </TouchableOpacity>
+        <View style={{ width: wp('6.4%') }} />
       </View>
 
-      {/* Calendar Modal */}
-      <Modal
-        visible={showCalendar}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setShowCalendar(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.calendarContainer}>
-            {/* Calendar Header */}
-            <View style={styles.calendarHeader}>
-              <TouchableOpacity onPress={() => setShowYearPicker(true)}>
-                <Text style={styles.calendarHeaderText}>{currentDate.getFullYear()}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setShowMonthPicker(true)}>
-                <Text style={styles.calendarHeaderText}>
-                  {months[currentDate.getMonth()]?.name || ''}
+      {/* Date Picker */}
+      <TouchableOpacity style={styles.dateDisplayContainer} onPress={toggleCalendar}>
+        <Text style={styles.selectedDateText}>
+          {selectedDate.toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </Text>
+        <Image source={require('../assets/calendar.jpg')} style={styles.calendarIcon} />
+      </TouchableOpacity>
+
+      {/* Month/Year Toggle */}
+      {showCalendar && (
+        <View style={styles.monthYearSelector}>
+          <TouchableOpacity style={styles.monthYearButton} onPress={() => setShowMonthPicker(!showMonthPicker)}>
+            <Text style={styles.monthYearText}>
+              {months[currentDate.getMonth()]?.name || ''}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.monthYearButton} onPress={() => setShowYearPicker(!showYearPicker)}>
+            <Text style={styles.monthYearText}>{currentDate.getFullYear()}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {showMonthPicker && (
+        <View style={styles.pickerContainer}>
+          <FlatList
+            data={months}
+            numColumns={3}
+            keyExtractor={(item) => item.index.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity style={styles.pickerItem} onPress={() => changeMonth(item.index)}>
+                <Text style={[styles.pickerItemText, currentDate.getMonth() === item.index && styles.pickerItemSelected]}>
+                  {item.name}
                 </Text>
               </TouchableOpacity>
-            </View>
+            )}
+          />
+        </View>
+      )}
 
-            {/* Weekdays Row - Ensure all 7 days are displayed */}
-            <View style={styles.weekdaysContainer}>
-              {weekdays.map((day) => (
-                <View key={day} style={styles.weekdayCell}>
-                  <Text style={styles.weekdayText}>{day}</Text>
-                </View>
-              ))}
-            </View>
+      {showYearPicker && (
+        <View style={styles.pickerContainer}>
+          <FlatList
+            data={years}
+            numColumns={3}
+            keyExtractor={(item) => item.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity style={styles.pickerItem} onPress={() => changeYear(item)}>
+                <Text style={[styles.pickerItemText, currentDate.getFullYear() === item && styles.pickerItemSelected]}>
+                  {item}
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+      )}
 
-            {/* Days Grid */}
-            <View style={styles.daysContainer}>
-              {days.map((day) => (
-                <TouchableOpacity
-                  key={day.id}
-                  style={[
-                    styles.dayButton,
-                    day.isSelected && styles.selectedDayButton,
-                    day.empty && styles.emptyDay,
-                  ]}
-                  onPress={() => !day.empty && handleDateSelect(day.fullDate)}
-                  disabled={day.empty}
-                >
-                  <Text
-                    style={[
-                      styles.dayText,
-                      day.isSelected && styles.selectedDayText,
-                    ]}
-                  >
-                    {day.empty ? '' : day.date}
+      {/* Calendar */}
+      {showCalendar && (
+        <>
+          <View style={styles.dayNamesContainer}>
+            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
+              <Text key={index} style={styles.dayNameText}>{day}</Text>
+            ))}
+          </View>
+          <View style={styles.calendarGrid}>
+            {days.map((day) => (
+              <TouchableOpacity
+                key={day.id}
+                style={[
+                  styles.dayContainer,
+                  day.empty && styles.emptyDay,
+                  day.isSelected && styles.activeDayContainer
+                ]}
+                onPress={() => !day.empty && handleDateSelect(day.fullDate)}
+                disabled={day.empty}
+              >
+                {!day.empty && (
+                  <Text style={[styles.dateText, day.isSelected && styles.activeDateText]}>
+                    {day.date}
                   </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            {/* Close Button */}
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setShowCalendar(false)}
-            >
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
+                )}
+              </TouchableOpacity>
+            ))}
           </View>
-        </View>
-      </Modal>
-
-      {/* Month Picker Modal */}
-      <Modal
-        visible={showMonthPicker}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.pickerContainer}>
-            <FlatList
-              data={months}
-              keyExtractor={(item) => item.index.toString()}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.pickerItem}
-                  onPress={() => changeMonth(item.index)}
-                >
-                  <Text style={styles.pickerItemText}>{item.name}</Text>
-                </TouchableOpacity>
-              )}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setShowMonthPicker(false)}
-            >
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Year Picker Modal */}
-      <Modal
-        visible={showYearPicker}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.pickerContainer}>
-            <FlatList
-              data={years}
-              keyExtractor={(item) => item.toString()}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.pickerItem}
-                  onPress={() => changeYear(item)}
-                >
-                  <Text style={styles.pickerItemText}>{item}</Text>
-                </TouchableOpacity>
-              )}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setShowYearPicker(false)}
-            >
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      {/* Horizontal Date Strip */}
-      <View style={styles.dateStrip}>
-        {getDatesForStrip().map((date, index) => {
-          const isSelected = date.toDateString() === selectedDate.toDateString();
-          return (
-            <TouchableOpacity
-              key={index}
-              onPress={() => handleDateSelect(date)}
-              style={[
-                styles.dateBox,
-                isSelected && styles.activeDateBox,
-              ]}
-            >
-              <Text style={[styles.dayText, isSelected && styles.activeText]}>
-                {weekdays[date.getDay()]}
-              </Text>
-              <Text style={[styles.dateText, isSelected && styles.activeText]}>
-                {date.getDate()}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+        </>
+      )}
 
       {/* Schedule Cards */}
       <ScrollView style={styles.scheduleContainer}>
-        {scheduleData.map((item) => (
-          <View key={item.id} style={styles.card}>
-            <View style={styles.cardHeader}>
-              <Text style={styles.title}>{item.title}</Text>
-              {item.status !== 'None' && (
-                <View
-                  style={[
-                    styles.statusBox,
-                    item.status === 'Present'
-                      ? styles.present
-                      : styles.absent,
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.statusText,
-                      item.status === 'Present'
-                        ? { color: 'green' }
-                        : { color: 'red' },
-                    ]}
-                  >
-                    {item.status}
-                  </Text>
-                </View>
+        {scheduleData.map((item, index) => (
+          <View key={item.id} style={styles.scheduleCard}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={styles.courseTitle}>{item.title}</Text>
+              {item.status === 'Present' && (
+                <View style={styles.presentBadge}><Text style={styles.presentText}>Present</Text></View>
+              )}
+              {item.status === 'Absent' && (
+                <View style={styles.absentBadge}><Text style={styles.absentText}>Absent</Text></View>
               )}
             </View>
-            <Text style={styles.time}>{item.time}</Text>
+            <Text style={styles.timeText}>{item.time}</Text>
           </View>
         ))}
       </ScrollView>
-
       <StudentBottomNavbar />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F8F8F8' },
-
+   container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#1C7988',
     padding: hp('2%'),
+    backgroundColor: '#1C7988',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
   },
-  backIcon: { width: wp('6%'), height: hp('3%') },
+  backIcon: {
+    width: wp('6.4%'),
+    height: hp('4%'),
+  },
   headerTitle: {
-    fontSize: hp('2.2%'),
+    fontSize: hp('2.5%'),
     fontWeight: 'bold',
     color: 'white',
   },
-  monthText: {
-    color: 'white',
-    fontSize: hp('1.8%'),
-  },
-
-  // Calendar styles
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  calendarContainer: {
-    backgroundColor: 'white',
-    borderRadius: wp('4%'),
-    padding: hp('2%'),
-    width: wp('90%'),
-  },
-  calendarHeader: {
+  dateDisplayContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: hp('2%'),
+    alignItems: 'center',
+    padding: hp('2%'),
+    backgroundColor: 'white',
+    marginHorizontal: wp('4%'),
+    marginTop: hp('1%'),
+    borderRadius: wp('2%'),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: wp('0.5%'),
+    elevation: 2,
   },
-  calendarHeaderText: {
-    fontSize: hp('2.5%'),
+  selectedDateText: {
+    fontSize: hp('2%'),
     fontWeight: 'bold',
     color: '#1C7988',
   },
-  weekdaysContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: hp('1%'),
+  calendarIcon: {
+    width: wp('8%'),
+    height: hp('4%'),
   },
-  weekdayCell: {
-    width: wp('12%'),
+  monthYearSelector: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingVertical: hp('1.2%'),
+    backgroundColor: 'white',
+    marginHorizontal: wp('4%'),
+    marginTop: hp('1%'),
+    borderRadius: wp('2%'),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: wp('0.5%'),
+    elevation: 2,
+  },
+  monthYearButton: {
+    paddingHorizontal: wp('5%'),
+    paddingVertical: hp('1%'),
+    marginHorizontal: wp('1.2%'),
+    borderRadius: wp('5%'),
+    backgroundColor: '#f5f5f5',
+  },
+  monthYearText: {
+    fontSize: hp('2%'),
+    fontWeight: 'bold',
+    color: '#1C7988',
+  },
+  pickerContainer: {
+    backgroundColor: 'white',
+    padding: hp('1.2%'),
+    marginHorizontal: wp('4%'),
+    borderRadius: wp('2%'),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: wp('0.5%') },
+    shadowOpacity: 0.1,
+    shadowRadius: wp('1%'),
+    elevation: 2,
+    position: 'absolute',
+    top: hp('20%'),
+    left: 0,
+    right: 0,
+    zIndex: 10,
+  },
+  pickerItem: {
+    flex: 1,
+    padding: hp('1.2%'),
     alignItems: 'center',
   },
-  weekdayText: {
+  pickerItemText: {
+    fontSize: hp('1.8%'),
+    color: '#333',
+  },
+  pickerItemSelected: {
+    fontWeight: 'bold',
+    color: '#1C7988',
+  },
+  dayNamesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: hp('1.2%'),
+    backgroundColor: 'white',
+    marginHorizontal: wp('4%'),
+  },
+  dayNameText: {
     fontSize: hp('1.8%'),
     fontWeight: 'bold',
     color: '#666',
+    width: wp('11.4%'),
+    textAlign: 'center',
   },
-  daysContainer: {
+  calendarGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    backgroundColor: 'white',
+    paddingBottom: hp('1.2%'),
+    marginHorizontal: wp('4%'),
+    borderRadius: wp('2%'),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: wp('0.5%'),
+    elevation: 2,
   },
-  dayButton: {
-    width: wp('12%'),
-    height: wp('12%'),
-    justifyContent: 'center',
+  dayContainer: {
+    width: `${100 / 7}%`,
     alignItems: 'center',
-    marginVertical: hp('0.5%'),
-  },
-  selectedDayButton: {
-    backgroundColor: '#1C7988',
-    borderRadius: wp('6%'),
+    justifyContent: 'center',
+    paddingVertical: hp('1.5%'),
+    aspectRatio: 1,
   },
   emptyDay: {
     backgroundColor: 'transparent',
   },
-  dayText: {
-    fontSize: hp('2%'),
-    color: '#333',
-  },
-  selectedDayText: {
-    color: 'white',
-  },
-  closeButton: {
-    marginTop: hp('2%'),
-    padding: hp('1.5%'),
+  activeDayContainer: {
     backgroundColor: '#1C7988',
-    borderRadius: wp('2%'),
-    alignItems: 'center',
-  },
-  closeButtonText: {
-    color: 'white',
-    fontSize: hp('2%'),
-    fontWeight: 'bold',
-  },
-
-  // Picker styles
-  pickerContainer: {
-    backgroundColor: 'white',
-    borderRadius: wp('4%'),
-    padding: hp('2%'),
-    width: wp('70%'),
-    maxHeight: hp('60%'),
-  },
-  pickerItem: {
-    padding: hp('1.5%'),
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  pickerItemText: {
-    fontSize: hp('2%'),
-    color: '#333',
-    textAlign: 'center',
-  },
-
-  // Existing styles
-  dateStrip: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#fff',
-    marginVertical: hp('1%'),
-    paddingVertical: hp('1%'),
-    marginHorizontal: wp('3%'),
-    borderRadius: wp('3%'),
-    elevation: 2,
-  },
-  dateBox: {
-    alignItems: 'center',
-    padding: wp('2.5%'),
-    borderRadius: wp('3%'),
-  },
-  activeDateBox: {
-    backgroundColor: '#1C7988',
+    borderRadius: wp('5%'),
   },
   dateText: {
     fontSize: hp('2%'),
-    fontWeight: 'bold',
-    color: '#444',
+    fontWeight: '500',
+    color: '#333',
   },
-  activeText: {
+  activeDateText: {
     color: 'white',
+    fontWeight: 'bold',
   },
   scheduleContainer: {
-    paddingHorizontal: wp('4%'),
-  },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: wp('3%'),
+    flex: 1,
     padding: hp('2%'),
-    marginBottom: hp('1.2%'),
-    elevation: 1,
   },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  scheduleCard: {
+    backgroundColor: 'white',
+    borderRadius: wp('2%'),
+    padding: hp('2%'),
+    marginBottom: hp('1%'),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: wp('0.5%'),
+    elevation: 2,
   },
-  title: {
+  courseTitle: {
     fontSize: hp('2%'),
     fontWeight: 'bold',
     color: '#333',
+    marginBottom: hp('1%'),
   },
-  time: {
+  timeText: {
     fontSize: hp('1.8%'),
-    marginTop: hp('0.5%'),
     color: '#666',
   },
-  statusBox: {
-    borderRadius: wp('2%'),
+  courseInfo: {
+    fontSize: hp('1.8%'),
+    color: '#666',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#e0e0e0',
+    marginVertical: hp('1%'),
+  },
+  presentBadge: {
     borderWidth: 1,
+    borderColor: 'green',
+    borderRadius: wp('2%'),
     paddingHorizontal: wp('2.5%'),
     paddingVertical: hp('0.3%'),
+    alignSelf: 'center',
   },
-  statusText: {
-    fontSize: hp('1.6%'),
-    fontWeight: '600',
+  presentText: {
+    fontSize: hp('1.5%'),
+    color: 'green',
+    fontWeight: 'bold',
   },
-  present: {
-    borderColor: 'green',
-  },
-  absent: {
+  absentBadge: {
+    borderWidth: 1,
     borderColor: 'red',
+    borderRadius: wp('2%'),
+    paddingHorizontal: wp('2.5%'),
+    paddingVertical: hp('0.3%'),
+    alignSelf: 'center',
   },
+  absentText: {
+    fontSize: hp('1.5%'),
+    color: 'red',
+    fontWeight: 'bold',
+  },
+ 
 });
 
 export default StudentScheduleScreen;

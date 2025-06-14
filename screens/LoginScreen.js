@@ -91,8 +91,8 @@ const LoginScreen = () => {
 
           <TouchableOpacity
             style={styles.loginButton}
-            // onPress={() => navigation.navigate('StudentDashboard')}
-             onPress={() => navigation.navigate('Home')}
+             onPress={() => navigation.navigate('StudentDashboard')}
+            //  onPress={() => navigation.navigate('Home')}
           >
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#007b8f',
     paddingVertical: hp('1.8%'),
     borderRadius: wp('2.5%'),
-    width: wp('90%'),
+    width: wp('50%'),
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: hp('0.1%'),

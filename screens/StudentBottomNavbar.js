@@ -9,9 +9,9 @@ const StudentBottomNavbar = ({ activeTab }) => {
 
   const tabs = [
     { id: 'Home', label: 'Home', icon: require('../assets/home-icon.png'), screen: 'StudentDashboard' },
-    { id: 'Exams', label: 'Exams', icon: require('../assets/Exams.png'), screen: 'ExamsScreen' },
-    { id: 'Notes', label: 'Notes', icon: require('../assets/Marks.png'), screen: 'MarksScreen' },
-    { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png'), screen: 'FacultyProfileScreen' },
+    { id: 'Exams', label: 'Exams', icon: require('../assets/Exams.png'), screen: 'StudentExamsScreen' },
+    { id: 'Notes', label: 'Notes', icon: require('../assets/Marks.png'), screen: '' },
+    { id: 'Profile', label: 'Profile', icon: require('../assets/profile-icon.png'), screen: '' },
   ];
 
   const handlePress = (tabId, screen) => {

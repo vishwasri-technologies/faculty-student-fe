@@ -16,13 +16,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import BottomNavbar from './BottomNavbar';
+import StudentBottomNavbar from './StudentBottomNavbar';
 
-const CalendarScreen = () => {
+const StudentAcademicCalendar = () => {
   const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
-
-  const handleDownload = () => {
+const handleDownload = () => {
     const pdfUrl = 'https://example.com/sample-academic-calendar.pdf';
     Linking.openURL(pdfUrl);
   };
@@ -52,12 +51,12 @@ const CalendarScreen = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <BottomNavbar />
+      <StudentBottomNavbar />
     </SafeAreaView>
   );
 };
 
-export default CalendarScreen;
+export default StudentAcademicCalendar;
 
 const styles = StyleSheet.create({
   container: {
@@ -98,11 +97,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dropdownTitle: {
-    fontSize: wp('4.8%'),
+    fontSize: wp('5.8%'),
     fontWeight: 'bold',
   },
   subText: {
-    fontSize: wp('3.9%'),
+    fontSize: wp('4.9%'),
     color: '#555',
     marginTop: hp('1%'),
   },
@@ -126,6 +125,7 @@ const styles = StyleSheet.create({
     color: '#007BFF',
     marginTop: hp('2%'),
     textDecorationLine: 'underline',
+    marginLeft:wp('60'),
   },
 });
 
