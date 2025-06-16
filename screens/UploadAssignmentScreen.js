@@ -212,10 +212,6 @@ const UploadAssignmentScreen = () => {
 
 export default UploadAssignmentScreen;
 const styles = StyleSheet.create({
-//   container: {
-//     flexGrow: 1,
-//     backgroundColor: '#fff',
-//   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

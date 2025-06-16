@@ -49,11 +49,11 @@ const StudentDashboard = () => {
   };
 
   const sidebarItems = [
-    { label: 'Fee & Payments', route: '' },
-    { label: 'Feedback', route: '' },
-    { label: 'Help Desk', route: 'HelpDeskScreen' },
+    { label: 'Fee & Payments', route:'StudentFeePayments'},
+    { label: 'Feedback', route:'StudentFeedbackScreen'},
+    { label: 'Help Desk', route:'StudentHelpDesk'},
     { label: 'About College', route: '' },
-    { label: 'Reset Password', route: 'ForgotScreen' },
+    { label: 'Reset Password', route:'ForgotScreen'},
   ];
   const attendancePercentage = 95;
   // Function to determine circle color based on attendance percentage
@@ -126,7 +126,7 @@ const StudentDashboard = () => {
               onPress={() => {
                 setIsLogoutModalVisible(false);
                 setIsSidebarVisible(false);
-                navigation.navigate('LoginScreen'); 
+                navigation.navigate('LoginScreen');
               }}
             >
               <Text style={styles.logoutButtonText}>Log out</Text>
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     width: wp(2),
-    height: hp(2.5),
+    height: hp(2.2),
     marginBottom: hp(3),
     paddingLeft: wp('7'),
   },

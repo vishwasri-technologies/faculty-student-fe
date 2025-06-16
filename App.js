@@ -30,6 +30,10 @@ import StudentAnnouncements from './screens/StudentAnnouncements';
 import StudentExamsScreen from './screens/StudentExamsScreen';
 import StudentSemesterMarks from "./screens/StudentSemesterMarks";
 import StudentNotesAssignments from './screens/StudentNotesAssignments';
+import StudentProfileScreen from './screens/StudentProfileScreen';
+import StudentFeedbackScreen from './screens/StudentFeedbackScreen';
+import StudentFeePayments from './screens/StudentFeePayments';
+import StudentHelpDesk from './screens/StudentHelpDesk';
 
 
 const Stack = createNativeStackNavigator();
@@ -174,7 +178,27 @@ const App = () => {
             component={StudentNotesAssignments}
             options={{ headerShown: false }}
           />
-        </Stack.Navigator>
+           <Stack.Screen
+            name="StudentProfileScreen"
+            component={StudentProfileScreen}
+            options={{ headerShown: false }}
+          />
+            <Stack.Screen
+            name="StudentFeedbackScreen"
+            component={StudentFeedbackScreen}
+            options={{ headerShown: false }}
+          />
+        <Stack.Screen
+            name="StudentFeePayments"
+            component={StudentFeePayments}
+            options={{ headerShown: false}}
+          />
+           <Stack.Screen
+            name="StudentHelpDesk"
+            component={StudentHelpDesk}
+            options={{ headerShown: false}}
+          />
+           </Stack.Navigator>
       </NavigationContainer>
     </>
   );

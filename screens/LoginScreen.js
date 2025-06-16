@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -55,7 +56,12 @@ const LoginScreen = () => {
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.title}>Camphavens</Text>
+          {/* Company Logo */}
+          <Image
+            source={require('../assets/Company-logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
 
           <Image
             source={require('../assets/Login-illustration.png')}
@@ -137,10 +143,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flexGrow: 1,
   },
-  title: {
-    fontSize: hp('3.2%'),
-    color: '#007b8f',
-    fontWeight: 'bold',
+  logo: {
+    width: wp('40%'),
+    height: hp('8%'),
     marginBottom: hp('1.5%'),
     marginTop: hp('-6%'),
   },
